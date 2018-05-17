@@ -1,38 +1,17 @@
-colors {
-    
-    background-color : #cfe5ba; /* Highlights and extras */
-    
-    background-color : #384852; /* Font content */
-    
-    background-color : #204f61; /* fond header */
-    background-color : #417d97; /* fond content */
-    background-color : #85b9c4; /* elements inside header  */ /* titles H header */
-    
-    background-color : #c4dbdf; /* elements inside content */ /* font header */
-    background-color : #ffffff; /* element inside other elements inside content */ /* font header */
-}
-
 body {
 
 }
 
-#logoheader {
+#header {
 
-    width: 80px;
-    border-radius: 50%;
-
-    margin-left: 45px;
-    margin-right: 50px;
 }
 
-header {
-    height: 80px;
+#main-content {
+
+    background-color: antiquewhite;
 }
 
-article header {
-    background-color: #192024;
+.blank_row {
+
+    height: 100px;
 }
-/*
-header h1, header h2, header h3, header h4, header h5, header h6 {
-    
-}*/
