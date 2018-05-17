@@ -1,35 +1,70 @@
 body {
-
-}
-
-#header {
-
+    margin: 0;
+    padding: 0;
+    background: lightgoldenrodyellow;
 }
 
 #glossary {
+    
+    padding-left: 75px;
+}
 
 
-    /* border-image: url(img/paper.jpg) 30; */
 
-    background: #fff3d4;
-    /* border: 30px solid; */
-    /* border-image: url(/media/examples/border-diamonds.png) 30 round; */
+/* Style feuille de papier */
+.paper {
+    position: absolute;
+    height: 550px;
+    width: 450px;
+    background: rgba(255,255,255,0.9);
+    margin: -275px -225px;
+    left: 50%;
+    top: 50%;
+    box-shadow: 0px 0px 5px 0px #888;
+}
 
-    border: 10px solid transparent;
-    border-image: url(img/paper.jpg) 30 round;
+.paper::before {
+    content: '';
+    position: absolute;
+    left: 45px;
+    height: 100%;
+    width: 2px;
+    background: rgba(255,0,0,0.4);
+}
 
-    /* background-image: url(img/paper.jpg) stretch; */
-    /*border-radius: 15px; */
-    background-image: url(img/paper.jpg);
+.lines {
+    margin-top: 40px;
+    height: calc(100% - 40px);
+    width: 100%;
+    background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+}
+
+.holes {
+    position: absolute;
+    left: 10px;
+    height: 25px;
+    width: 25px;
+    background: lightgoldenrodyellow;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 2px 0px #888;
+}
+
+.hole-top {
+    top: 10%;     
+}
+
+.hole-middle {
+    top: 50%;
+}
+
+.hole-bottom {
+    bottom: 10%;
 }
 
 #content {
-
     height: 250px;
 }
 
 .blank_row {
-
     height: 100px;
-    
 }
