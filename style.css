@@ -5,7 +5,7 @@ body {
 }
 
 header {
-    padding-top: 53px;
+
 }
 
 #glossary {
@@ -22,12 +22,15 @@ header {
 
 /* Style feuille de papier */
 .paper {
+    
+    padding-top: 53px;
     width: 450px;
     background: rgba(255,255,255,0.9);
     box-shadow: 0px 0px 5px 0px #888;
 }
 
 .lines2 {
+    top: 0px;
     position: absolute;    
     content: '';
     left: 45px;
