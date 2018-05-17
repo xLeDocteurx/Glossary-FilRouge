@@ -6,12 +6,30 @@ body {
 
 }
 
-#main-content {
+#glossary {
 
-    background-color: antiquewhite;
+
+    /* border-image: url(img/paper.jpg) 30; */
+
+    background: #fff3d4;
+    /* border: 30px solid; */
+    /* border-image: url(/media/examples/border-diamonds.png) 30 round; */
+
+    border: 10px solid transparent;
+    border-image: url(img/paper.jpg) 30 round;
+
+    /* background-image: url(img/paper.jpg) stretch; */
+    /*border-radius: 15px; */
+    background-image: url(img/paper.jpg);
+}
+
+#content {
+
+    /* background-color: antiquewhite; */
 }
 
 .blank_row {
 
     height: 100px;
+    
 }
