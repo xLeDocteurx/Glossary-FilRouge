@@ -14,7 +14,11 @@ header {
 }
 
 h1 {
-    font-family: 'PWChalkf';
+    font-family: 'PWChalkf', cursive;
+}
+
+p {
+    font-family: 'Crafty Girls', cursive;
 }
 
 #glossary {
