@@ -7,8 +7,9 @@
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <script src="js/jquery.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="scripts.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script type="text/javascript" src="js/scripts.js"></script>
@@ -19,7 +20,11 @@
 
 
     <div class="container-fluid">
-        <div class="blank_row row"></div>
+        <div class="blank_row row">
+            <div class="col">
+                <button id="open" class="btn btn-outline-primary btn-block my-3">Open the Booknote</button>
+            </div>
+        </div>
 
         <div class="row">
 
@@ -45,21 +50,20 @@
 
                             <!-- <div class="inner-hard-cover"></div> -->
 
+
+
         <!-- /////////////// INDEX //////////////////// -->
                             <div id="page-index" class="hard-cover frontc row">
                                 <div class="etiquette row">
-                                        <div class="col-md-12">
-                                            <h1>GLOSSAIRE</h1>
-                                        
-                                            <form class="form-inline">
-                                                <input id="search-sticker" class="form-control mr-1" type="search" placeholder="Search" aria-label="Search">
-                                                <button id="submit-sticker" class="btn btn-outline-success btn-sm m-1" type="submit">Search</button>
-                                            </form>
+                                    <div class="col-md-12">
+                                        <h1>GLOSSAIRE</h1>
+                                    
+                                        <form class="form-inline">
+                                            <input id="search-sticker" class="form-control mr-1" type="search" placeholder="Search" aria-label="Search">
+                                            <button id="submit-sticker" class="btn btn-outline-success btn-sm m-1" type="submit">Search</button>
+                                        </form>
 
-                                        </div>
-
-                                            
-
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -67,7 +71,10 @@
                                     </div>     
                                 </div>
                             </div>
-                               
+        <!-- /////////////// INDEX //////////////////// -->
+
+        
+
         <!-- /////////////// # //////////////////// -->
                             <!-- <div id="page-#" class="row">
                                 <div class="row">
@@ -82,6 +89,7 @@
                                     </div>     
                                 </div>
                             </div> -->
+        <!-- /////////////// # //////////////////// -->
 
 
 
