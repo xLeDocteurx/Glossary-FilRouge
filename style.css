@@ -152,11 +152,11 @@ p {
     display:none;
 }
 .ring {
-    position: absolute;
+    position: relative;
     width: 60px;
     height: 17px;
-    left: -31px;
-    top: 172px;
+    left: -50px;
+    top: -1263px;
     z-index: 3;
 }
 .ring1 {
