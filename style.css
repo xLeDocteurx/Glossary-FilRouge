@@ -14,7 +14,37 @@ header {
 }
 
 #content {
-    height: 250px;
+    min-height: 850px;
+}
+
+/* Style couverture */
+#hard-cover {
+
+    z-index: -3;
+    height: 110%;
+    width: 120%;
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    /* padding: 50px;
+    margin: 50px auto 20px;     */
+    border-radius: 20px;
+    background-color: burlywood;
+}
+#inner-hard-cover {
+
+    z-index: -2;
+    height: 108%;
+    width: 117%;
+    position: absolute;
+    top: -40px;
+    left: -41px;
+    /* padding: 50px;
+    margin: 50px auto 20px;     */
+    border-style: dashed;
+    border-color: rgb(175, 134, 81);
+    border-radius: 20px;
+    background-color: burlywood;
 }
 
 /* Style marque-page */
@@ -23,16 +53,36 @@ header {
     position: absolute;
     z-index: -1;
     top: 30px;
-    right: -30px;
+    right: -35px;
 }
 .booklet {
 
-    rotate: 10;
-    background-color: aquamarine;
+    /* rotate: 10;kqezkjhzzsrkjhhzerekqzerkjhzerkijkhjzerheoizjehjrooizhehroihzer' */
     padding: 5px 10px 5px 15px;
     /* border-top-left-radius: 10px; */
+    border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     box-shadow: 0px 0px 5px 0px #888;    
+}
+
+.x1 {
+    background-color: lightblue;
+}
+
+.x2 {
+    background-color: lightcoral;
+}
+
+.x3 {
+    background-color: lightcyan;
+}
+
+.x4 {
+    background-color: lightgoldenrodyellow;
+}
+
+.x5 {
+    background-color: lightpink;
 }
 
 /* Style feuille de papier */
@@ -41,7 +91,7 @@ header {
     padding-bottom: 25px;
     padding-top: 53px;
     width: 450px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255);
     box-shadow: 0px 0px 5px 0px #888;
 
     border-radius: 5px;
@@ -82,7 +132,7 @@ header {
     left: 10px;
     height: 25px;
     width: 25px;
-    background: lightgoldenrodyellow;
+    background: burlywood;
     border-radius: 50%;
     box-shadow: inset 0px 0px 2px 0px #888;
 }
