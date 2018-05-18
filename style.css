@@ -8,6 +8,15 @@ header {
 
 }
 
+@font-face {
+    font-family: 'PWChalkf';
+    src: url('font/PWChalk.ttf');
+}
+
+h1 {
+    font-family: 'PWChalkf';
+}
+
 #glossary {
     
     padding-left: 75px;
