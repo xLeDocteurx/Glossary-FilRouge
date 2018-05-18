@@ -166,3 +166,6 @@ p {
 .blank_row {
     height: 100px;
 }
+.mq {
+    display:none;
+}
