@@ -93,11 +93,29 @@ footer {
     height: 200px;
 
     text-align: center;
-    padding-top: 65px;
+    padding-top: 55px;
 
     background-image: url(img/etiquette.png);
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.rowtitle {
+
+}
+
+.rowform {
+    
+}
+
+#search-sticker {
+    margin-left: 30px;
+    width: 150px;
+}
+
+#submit-sticker {
+
+    width: 50px;
 }
 
 .inner-hard-cover {
@@ -125,7 +143,7 @@ footer {
     position: absolute;
     z-index: -1;
     top: 30px;
-    right: -135px;
+    right: -35px;
 }
 
 .nav-tabs {
@@ -201,10 +219,6 @@ footer {
     height: calc(100% - 40px);
     width: 100%;
     background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
-}
-
-.mq {
-    display:none;
 }
 
 #cloudWord {
