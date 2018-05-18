@@ -3,30 +3,39 @@ body {
     padding: 0;
     background: lightgoldenrodyellow;
 }
+
 header {
 
 }
+
 @font-face {
     font-family: 'PWChalkf';
     src: url('font/PWChalk.ttf');
 }
+
 h1 {
     font-family: 'PWChalkf', cursive;
 }
+
 p {
     font-family: 'Crafty Girls', cursive;
 }
+
 #glossary {
     
     padding-left: 75px;
 }
+
 #content {
     min-height: 850px;
 }
+
 #end {
     font-family: 'Swanky and Moo Moo';
     font-size: 30px;
 }
+
+
 /* Style couverture */
 #hard-cover {
 
@@ -57,6 +66,7 @@ p {
     border-radius: 20px;
     background-color: burlywood;
 }
+
 /* Style marque-page */
 #booklets-container {
 
@@ -74,21 +84,27 @@ p {
     border-top-right-radius: 10px;
     box-shadow: 0px 0px 5px 0px #888;    
 }
+
 .x1 {
     background-color: lightblue;
 }
+
 .x2 {
     background-color: lightcoral;
 }
+
 .x3 {
     background-color: lightcyan;
 }
+
 .x4 {
     background-color: lightgoldenrodyellow;
 }
+
 .x5 {
     background-color: lightpink;
 }
+
 /* Style feuille de papier */
 .paper {
     
@@ -100,6 +116,7 @@ p {
 
     border-radius: 5px;
 }
+
 #texture {
     top: 0px;
     left: 0px;
@@ -113,6 +130,7 @@ p {
 
     opacity: 0.1;
 }
+
 .lines2 {
     top: 0px;
     position: absolute;    
@@ -122,11 +140,13 @@ p {
     width: 2px;
     background: rgba(255,0,0,0.4);
 }
+
 .lines {
     height: calc(100% - 40px);
     width: 100%;
     background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
 }
+
 .holes {
     position: absolute;
     left: 10px;
@@ -136,21 +156,28 @@ p {
     border-radius: 50%;
     box-shadow: inset 0px 0px 2px 0px #888;
 }
+
 .hole-top {
     top: 10%;     
 }
+
 .hole-middle {
     top: 50%;
 }
+
 .hole-bottom {
     bottom: 10%;
 }
+
 .blank_row {
     height: 100px;
 }
+
 .mq {
     display:none;
 }
+
+
 .ring {
     position: relative;
     width: 60px;
@@ -159,6 +186,7 @@ p {
     top: -1263px;
     z-index: 3;
 }
+
 .ring1 {
     background-color: #7f8c8d;
     background-image: linear-gradient(#7f8c8d, #bdc3c7);
@@ -166,9 +194,11 @@ p {
     border-radius: 10px;
     box-shadow: 2px 2px 2px black;
 }
+
 .ring2 {
     height: 1px;
 }
+
 .ring3 {
     background-color: #7f8c8d;
     background-image: linear-gradient(#7f8c8d, #bdc3c7);
