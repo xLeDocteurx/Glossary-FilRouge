@@ -27,29 +27,60 @@ p {
 }
 
 #content {
-    min-height: 850px;
+    min-height: 1000px;
 }
 
 /* Style couverture */
-#hard-cover {
+
+.hard-cover {
 
     z-index: -3;
     height: 110%;
-    width: 120%;
+    width: 110%;
     position: absolute;
     top: -50px;
     left: -50px;
     /* padding: 50px;
     margin: 50px auto 20px;     */
     border-radius: 20px;
-    background-color: burlywood;
-    box-shadow: 0px 0px 5px 0px #888;    
+    background-color: red;
+
+    background-image: url(img/texture-craft-paper.jpg);
+    background-repeat: repeat;
+
+    box-shadow: 0px 0px 5px 0px #888;
 }
-#inner-hard-cover {
+
+.frontc {
+
+    z-index: 0;
+    height: 110%;
+    width: 103%;
+    top: -50px;
+    left: -50px;
+
+    box-shadow: 0px 0px 5px 0px #333;   
+}
+
+.etiquette {
+    
+    position: absolute;
+    top: 100px;
+    left: 35%;
+
+    width: 300px;
+    height: 200px;
+
+    background-image: url(img/etiquette.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.inner-hard-cover {
 
     z-index: -2;
     height: 108%;
-    width: 117%;
+    width: 107%;
     position: absolute;
     top: -40px;
     left: -41px;
@@ -58,7 +89,10 @@ p {
     border-style: dashed;
     border-color: rgb(175, 134, 81);
     border-radius: 20px;
-    background-color: burlywood;
+    background-color: red;
+
+    background-image: url(img/texture-craft-paper.jpg);
+    background-repeat: repeat;
 }
 
 /* Style marque-page */
@@ -72,10 +106,9 @@ p {
 .booklet {
 
     /* rotate: 10;kqezkjhzzsrkjhhzerekqzerkjhzerkijkhjzerheoizjehjrooizhehroihzer' */
-    padding: 5px 10px 5px 15px;
+    padding: 7px 7px 7px 18px;
     /* border-top-left-radius: 10px; */
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 10px;
     box-shadow: 0px 0px 5px 0px #888;    
 }
 
@@ -141,28 +174,28 @@ p {
     background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
 }
 
+.blank_row {
+    height: 100px;
+}
+
 .holes {
     position: absolute;
-    left: 10px;
+    left: -30px;
     height: 25px;
     width: 25px;
-    background: burlywood;
+    background: lightgoldenrodyellow;
     border-radius: 50%;
     box-shadow: inset 0px 0px 2px 0px #888;
 }
 
-.hole-top {
-    top: 10%;     
+.hole-1 {
+    top: 0px;     
 }
 
-.hole-middle {
-    top: 50%;
+.hole-2 {
+    top: 50px;
 }
 
-.hole-bottom {
-    bottom: 10%;
-}
-
-.blank_row {
-    height: 100px;
+.hole-3 {
+    top: 100px;
 }
