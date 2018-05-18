@@ -30,6 +30,12 @@ p {
     min-height: 850px;
 }
 
+#end {
+    font-family: 'Swanky and Moo Moo';
+    font-size: 30px;
+}
+
+
 /* Style couverture */
 #hard-cover {
 
