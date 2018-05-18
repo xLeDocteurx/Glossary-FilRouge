@@ -23,11 +23,32 @@ p {
 
 #glossary {
     
-    padding-left: 75px;
+    padding-left: 110px;
+    padding-right: 20px;
 }
 
 #content {
     min-height: 1000px;
+}
+
+footer {
+
+    font-family: 'Swanky and Moo Moo';
+    font-size: 12px;
+}
+
+#logoSimplon {
+
+    height: 40px;
+}
+
+#page-index {
+
+    justify-content: center;
+    padding-left: 100px;
+    padding-right: 10px;
+
+    padding-top: 70px;
 }
 
 /* Style couverture */
@@ -36,10 +57,10 @@ p {
 
     z-index: -3;
     height: 110%;
-    width: 110%;
+    width: 103%;
     position: absolute;
     top: -50px;
-    left: -50px;
+    left: -20px;
     /* padding: 50px;
     margin: 50px auto 20px;     */
     border-radius: 20px;
@@ -54,22 +75,25 @@ p {
 .frontc {
 
     z-index: 0;
-    height: 110%;
-    width: 103%;
-    top: -50px;
-    left: -50px;
+    height: 109%;
+    width: 101%;
+    top: -45px;
+    left: -20px;
 
     box-shadow: 0px 0px 5px 0px #333;   
 }
 
 .etiquette {
     
-    position: absolute;
-    top: 100px;
-    left: 35%;
+    /* position: absolute; */
+    /* top: 100px;
+    left: 35%; */
 
     width: 300px;
     height: 200px;
+
+    text-align: center;
+    padding-top: 65px;
 
     background-image: url(img/etiquette.png);
     background-repeat: no-repeat;
@@ -108,7 +132,7 @@ p {
     /* rotate: 10;kqezkjhzzsrkjhhzerekqzerkjhzerkijkhjzerheoizjehjrooizhehroihzer' */
     padding: 7px 7px 7px 18px;
     /* border-top-left-radius: 10px; */
-    border-radius: 10px;
+    border-radius: 7px;
     box-shadow: 0px 0px 5px 0px #888;    
 }
 
@@ -137,7 +161,7 @@ p {
     
     padding-bottom: 25px;
     padding-top: 53px;
-    width: 450px;
+    /* width: 450px; */
     background: rgba(255,255,255);
     box-shadow: 0px 0px 5px 0px #888;
 
@@ -162,7 +186,7 @@ p {
     top: 0px;
     position: absolute;    
     content: '';
-    left: 45px;
+    left: 95px;
     height: 100%;
     width: 2px;
     background: rgba(255,0,0,0.4);
@@ -174,28 +198,127 @@ p {
     background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
 }
 
-.blank_row {
-    height: 100px;
+.mq {
+    display:none;
+}
+
+#cloudWord {
+
+    width: 100%;
+    /* height: 100%; */
+}
+
+.rings {
+    position: relative;
+    width: 80px;
+    height: 17px;
+    left: -65px;
+    top: 4px;
+    z-index: 3;
+}
+
+.ring {
+    background-color: #7f8c8d;
+    background-image: linear-gradient(#7f8c8d, #bdc3c7);
+    height: 8px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px black;
+}
+
+.ring-spacer {
+    height: 3px;
 }
 
 .holes {
     position: absolute;
-    left: -30px;
-    height: 25px;
-    width: 25px;
+    left: 20px;
+    height: 30px;
+    width: 30px;
     background: lightgoldenrodyellow;
     border-radius: 50%;
     box-shadow: inset 0px 0px 2px 0px #888;
 }
 
 .hole-1 {
-    top: 0px;     
+    top: 50px;     
 }
 
 .hole-2 {
-    top: 50px;
+    top: 100px;
 }
 
 .hole-3 {
-    top: 100px;
+    top: 150px;
+}
+
+.hole-4 {
+    top: 200px;
+}
+
+.hole-5 {
+    top: 250px;
+}
+
+.hole-6 {
+    top: 300px;
+}
+
+.hole-7 {
+    top: 350px;
+}
+
+.hole-8 {
+    top: 400px;
+}
+
+.hole-9 {
+    top: 450px;
+}
+
+.hole-10 {
+    top: 500px;
+}
+
+.hole-11 {
+    top: 550px;
+}
+
+.hole-12 {
+    top: 600px;
+}
+
+.hole-13 {
+    top: 650px;
+}
+
+.hole-14 {
+    top: 700px;
+}
+
+.hole-15 {
+    top: 750px;
+}
+
+.hole-16 {
+    top: 800px;
+}
+
+.hole-17 {
+    top: 850px;
+}
+
+.hole-18 {
+    top: 900px;
+}
+
+.hole-19 {
+    top: 950px;
+}
+
+.hole-20 {
+    top: 1000px;
+}
+
+.blank_row {
+    height: 100px;
 }
