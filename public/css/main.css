@@ -1,347 +1,347 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-color: lightblue;
+  background-color: lightblue;
 }
 
 header {
+}
 
+header a {
+  color: #6c757d;
+}
+
+header a:hover {
+    text-decoration: none;
+  color: #f8f9fa;
+}
+
+header a:active {
+  color: white;
 }
 
 @font-face {
-    font-family: 'PWChalkf';
-    src: url('font/PWChalk.ttf');
+  font-family: "PWChalkf";
+  src: url("font/PWChalk.ttf");
 }
 
 h1 {
-    font-family: 'PWChalkf', cursive;
+  font-family: "PWChalkf", cursive;
 }
 
 p {
-    font-family: 'Crafty Girls', cursive;
+  font-family: "Crafty Girls", cursive;
 }
 
 #glossary {
-    
-    padding-left: 110px;
-    padding-right: 20px;
+  padding-left: 110px;
+  padding-right: 20px;
 }
 
 #content {
-    min-height: 1000px;
+  min-height: 1000px;
 }
 
 footer {
-
-    font-family: 'Swanky and Moo Moo';
-    font-size: 12px;
+  font-family: "Swanky and Moo Moo";
+  font-size: 12px;
 }
 
 #logoSimplon {
-
-    height: 40px;
+  height: 40px;
 }
 
 #page-index {
+  justify-content: center;
+  padding-left: 100px;
+  padding-right: 10px;
 
-    justify-content: center;
-    padding-left: 100px;
-    padding-right: 10px;
-
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 /* Style couverture */
 
 .hard-cover {
-
-    z-index: -3;
-    height: 110%;
-    width: 103%;
-    position: absolute;
-    top: -50px;
-    left: -20px;
-    /* padding: 50px;
+  z-index: -3;
+  height: 110%;
+  width: 103%;
+  position: absolute;
+  top: -50px;
+  left: -20px;
+  /* padding: 50px;
     margin: 50px auto 20px; */
-    border-radius: 20px;
-    background-color: burlywood;
+  border-radius: 20px;
+  background-color: burlywood;
 
-    background-image: url(img/texture-craft-paper.jpg);
-    background-repeat: repeat;
+  background-image: url(img/texture-craft-paper.jpg);
+  background-repeat: repeat;
 
-    box-shadow: 0px 0px 5px 0px #888;
+  box-shadow: 0px 0px 5px 0px #888;
 }
 
 .frontc {
+  z-index: 0;
+  height: 109%;
+  width: 101%;
+  top: -45px;
+  left: -10px;
 
-    z-index: 0;
-    height: 109%;
-    width: 101%;
-    top: -45px;
-    left: -10px;
-
-    box-shadow: 0px 0px 5px 0px #333;   
+  box-shadow: 0px 0px 5px 0px #333;
 }
 
 .etiquette {
-    
-    /* position: absolute; */
-    /* top: 100px;
+  /* position: absolute; */
+  /* top: 100px;
     left: 35%; */
 
-    width: 300px;
-    height: 200px;
+  width: 300px;
+  height: 200px;
 
-    text-align: center;
-    padding-top: 55px;
+  text-align: center;
+  padding-top: 55px;
 
-    background-image: url(img/etiquette.png);
-    background-repeat: no-repeat;
-    background-size: contain;
+  background-image: url(img/etiquette.png);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .rowtitle {
-
 }
 
 .rowform {
-    
 }
 
 #search-sticker {
-    margin-left: 30px;
-    width: 150px;
+  margin-left: 30px;
+  width: 150px;
 }
 
-#submit-sticker {
-
-    width: 50px;
+#submit-sticker  {
+  width: 50px;
 }
 
 .inner-hard-cover {
-
-    z-index: -2;
-    height: 108%;
-    width: 107%;
-    position: absolute;
-    top: -40px;
-    left: -41px;
-    /* padding: 50px;
+  z-index: -2;
+  height: 108%;
+  width: 107%;
+  position: absolute;
+  top: -40px;
+  left: -41px;
+  /* padding: 50px;
     margin: 50px auto 20px;     */
-    border-style: dashed;
-    border-color: rgb(175, 134, 81);
-    border-radius: 20px;
-    background-color: red;
+  border-style: dashed;
+  border-color: rgb(175, 134, 81);
+  border-radius: 20px;
+  background-color: red;
 
-    background-image: url(img/texture-craft-paper.jpg);
-    background-repeat: repeat;
+  background-image: url(img/texture-craft-paper.jpg);
+  background-repeat: repeat;
 }
 
 /* Style marque-page */
 #booklets-container {
-
-    position: absolute;
-    z-index: -1;
-    top: 30px;
-    right: -35px;
+  position: absolute;
+  z-index: -1;
+  top: 30px;
+  right: -35px;
 }
 
 .nav-tabs {
-
 }
 
 .booklet {
-
-    /* rotate: 10; */
-    padding: 7px 7px 7px 18px;
-    /* border-top-left-radius: 10px; */
-    border-radius: 7px;
-    box-shadow: 0px 0px 5px 0px #888;    
+  /* rotate: 10; */
+  padding: 7px 7px 7px 18px;
+  /* border-top-left-radius: 10px; */
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 0px #888;
 }
 
 .x1 {
-    background-color: lightblue;
+  background-color: lightblue;
 }
 
 .x2 {
-    background-color: lightcoral;
+  background-color: lightcoral;
 }
 
 .x3 {
-    background-color: lightcyan;
+  background-color: lightcyan;
 }
 
 .x4 {
-    background-color: lightgoldenrodyellow;
+  background-color: lightgoldenrodyellow;
 }
 
 .x5 {
-    background-color: lightpink;
+  background-color: lightpink;
 }
 
 /* Style feuille de papier */
 .paper {
-    
-    padding-bottom: 25px;
-    padding-top: 53px;
-    /* width: 450px; */
-    background: rgba(255,255,255);
-    box-shadow: 0px 0px 5px 0px #888;
+  padding-bottom: 25px;
+  padding-top: 53px;
+  /* width: 450px; */
+  background: rgba(255, 255, 255);
+  box-shadow: 0px 0px 5px 0px #888;
 
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 #texture {
-    top: 0px;
-    left: 0px;
-    position: absolute;    
-    content: '';
-    height: 100%;
-    width: 100%;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
 
-    background-image: url(img/texture-paper.jpg);
-    background-repeat: repeat;
+  background-image: url(img/texture-paper.jpg);
+  background-repeat: repeat;
 
-    opacity: 0.1;
+  opacity: 0.1;
 }
 
 .lines2 {
-    top: 0px;
-    position: absolute;    
-    content: '';
-    left: 95px;
-    height: 100%;
-    width: 2px;
-    background: rgba(255,0,0,0.4);
+  top: 0px;
+  position: absolute;
+  content: "";
+  left: 95px;
+  height: 100%;
+  width: 2px;
+  background: rgba(255, 0, 0, 0.4);
 }
 
 .lines {
-    height: calc(100% - 40px);
-    width: 100%;
-    background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+  height: calc(100% - 40px);
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    white 0px,
+    white 24px,
+    steelblue 25px
+  );
 }
 
 #cloudWord {
-
-    width: 100%;
-    /* height: 100%; */
+  width: 100%;
+  /* height: 100%; */
 }
 
 .rings {
-    position: relative;
-    width: 90px;
-    height: 17px;
-    left: -75px;
-    top: 4px;
-    z-index: 3;
+  position: relative;
+  width: 90px;
+  height: 17px;
+  left: -75px;
+  top: 4px;
+  z-index: 3;
 }
 
 .ring {
-    background-color: #7f8c8d;
-    background-image: linear-gradient(#7f8c8d, #bdc3c7);
-    height: 8px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px black;
+  background-color: #7f8c8d;
+  background-image: linear-gradient(#7f8c8d, #bdc3c7);
+  height: 8px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px black;
 }
 
 .ring-spacer {
-    height: 3px;
+  height: 3px;
 }
 
 .holes {
-    position: absolute;
-    left: 20px;
-    height: 30px;
-    width: 30px;
-    background: lightblue;
-    border-radius: 50%;
-    box-shadow: inset 0px 0px 2px 0px #888;
+  position: absolute;
+  left: 20px;
+  height: 30px;
+  width: 30px;
+  background: lightblue;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 2px 0px #888;
 }
 
 .hole-1 {
-    top: 50px;     
+  top: 50px;
 }
 
 .hole-2 {
-    top: 100px;
+  top: 100px;
 }
 
 .hole-3 {
-    top: 150px;
+  top: 150px;
 }
 
 .hole-4 {
-    top: 200px;
+  top: 200px;
 }
 
 .hole-5 {
-    top: 250px;
+  top: 250px;
 }
 
 .hole-6 {
-    top: 300px;
+  top: 300px;
 }
 
 .hole-7 {
-    top: 350px;
+  top: 350px;
 }
 
 .hole-8 {
-    top: 400px;
+  top: 400px;
 }
 
 .hole-9 {
-    top: 450px;
+  top: 450px;
 }
 
 .hole-10 {
-    top: 500px;
+  top: 500px;
 }
 
 .hole-11 {
-    top: 550px;
+  top: 550px;
 }
 
 .hole-12 {
-    top: 600px;
+  top: 600px;
 }
 
 .hole-13 {
-    top: 650px;
+  top: 650px;
 }
 
 .hole-14 {
-    top: 700px;
+  top: 700px;
 }
 
 .hole-15 {
-    top: 750px;
+  top: 750px;
 }
 
 .hole-16 {
-    top: 800px;
+  top: 800px;
 }
 
 .hole-17 {
-    top: 850px;
+  top: 850px;
 }
 
 .hole-18 {
-    top: 900px;
+  top: 900px;
 }
 
 .hole-19 {
-    top: 950px;
+  top: 950px;
 }
 
 .hole-20 {
-    top: 1000px;
+  top: 1000px;
 }
 
 .hole-21 {
-    top: 1050px;
+  top: 1050px;
 }
 
 .blank_row {
-    height: 120px;
+  height: 100px;
+  padding: 0;
+  margin: 0;
 }
