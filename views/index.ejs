@@ -26,9 +26,11 @@
                 <div id="content" class="row">
 
                     <!-- <div class="inner-hard-cover"></div> -->
+                    <%if(locals.wword){%>
                     <%wword.forEach(function(mots){%>
                     <p><%=mots.word%> : <%=mots.definition%>.</p>
                     <%})%>
+                    <%}%>
 
 
 
