@@ -1,23 +1,12 @@
 {
-  "name": "glossaire-template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "",
+  "version": "",
   "dependencies": {
-    "bootstrap": "^4.1.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xLeDocteurx/Glossary-FilRouge.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xLeDocteurx/Glossary-FilRouge/issues"
-  },
-  "homepage": "https://github.com/xLeDocteurx/Glossary-FilRouge#readme"
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "socket.io": "^2.1.1",
+    "sqlite3": "^4.0.1"
+  }
 }
