@@ -4,9 +4,12 @@ let moment = require('moment');
 let fs = require('fs');
 let app = express();
 const sqlite3 = require('sqlite3').verbose();
-
+//Utilisation du template ejs
 app.set('view engine', 'ejs');
+//utilisation du dossier public pour le css
 app.use(express.static('public')); 
+//utilisation du css pour le cas où l'on choisit une lettre ( necessaire )
+app.use('/lettre/:id', express.static('public'));
 
 app.use(bodyparser.urlencoded({ extended: false}));
 
