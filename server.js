@@ -2,6 +2,7 @@ let bodyparser = require('body-parser');
 let express = require('express');
 let moment = require('moment');
 let fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
 
 let app = express();
 app.set('view engine', 'ejs');
