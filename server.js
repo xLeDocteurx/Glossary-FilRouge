@@ -125,18 +125,18 @@ app.post("/register", (req, res) => {
   res.redirect("/");
 });
 //Lors d'un ajout de poste sur le modal
-app.post('/ajout',(req,res)=>{
-	var title=blbl(htmlspecialchars(req.body.add_word));
-	var define=req.body.add_definition;
-	var postadd=`INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
-	db.serialize(()=>{
-		db.all(postadd,(err,row)=>{
-			if(err){
-				console.log(err.message);
-			}
-			res.redirect('/glossary');
-		})
-	})
+app.post("/ajout", (req, res) => {
+  var title = blbl(htmlspecialchars(req.body.add_word));
+  var define = req.body.add_definition;
+  var postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
+  db.serialize(() => {
+    db.all(postadd, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      res.redirect("/glossary");
+    });
+  });
 });
 
 app.post("/connect", (req, res) => {
@@ -154,7 +154,11 @@ app.post("/connect", (req, res) => {
     }
     if (row.length > 0) {
       console.log("Connection réussie");
-      console.log(row);
+      console.log(socket.id);
+      // console.log(row);
+
+      // linkvisitor({ id: socket.id });
+
       res.render("index", { user: row.email, letters: alph });
     } else {
       console.log("Cet utilisateur n'existe pas dans la base de donné");
@@ -198,7 +202,7 @@ function subvisitor(data) {
 function linkvisitor(data) {
   var i = visitors.indexOf(
     visitors.find(visitor => {
-      return visitor.id == socket.id;
+      return visitor.id == data.id;
     })
   );
   visitors[i].email = data;
