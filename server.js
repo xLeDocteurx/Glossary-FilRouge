@@ -30,7 +30,35 @@ let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
   console.log("Base de données ouverte sans problème");
 });
 //Variable pour afficher tout les marque-pages
-let alph=['+','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+let alph = [
+  "+",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z"
+];
 
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
@@ -82,8 +110,7 @@ app.post("/register", (req, res) => {
   var ruser = blbl(htmlspecialchars(req.body.register_username));
   var remail = blbl(htmlspecialchars(req.body.register_email));
   var rpass = blbl(htmlspecialchars(req.body.register_password));
-  var inscription =
-  `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
+  var inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
   db.serialize(() => {
     db.all(inscription, (err, row) => {
       if (err) {
@@ -109,12 +136,22 @@ app.post('/ajout',(req,res)=>{
 });
 
 app.post("/connect", (req, res) => {
-let username = blbl(htmlspecialchars(req.body.connect_username));
-let password = blbl(htmlspecialchars(req.body.connect_password));
+  let username = blbl(htmlspecialchars(req.body.connect_username));
+  let password = blbl(htmlspecialchars(req.body.connect_password));
 
-let results = `SELECT * FROM users WHERE username = ${username}`;
+  let connection = `SELECT password FROM users WHERE username = ${username}`;
 
-console.log("résultats de la requette pour l'username : ");
-console.log(results);
-	res.redirect("/");
+  db.all(connection, (err, row) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    if (row.length > 0) {
+      console.log("résultats de la requette pour l'username : ");
+      console.log(row);
+    } else {
+      console.log("Cet utilisateur n'existe pas dans la base de donné");
+    }
+  });
+  res.render("index", {letters: alph});
 });
