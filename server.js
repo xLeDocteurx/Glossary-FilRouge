@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 });
 //Page spécifique peu importe le marque page appuyé ( protection a ajouter )
 app.get('/lettre/:id',(req,res)=>{
-	var id=req.params.id;
+	var id=htmlspecialchars(req.params.id);
 	var filtre="SELECT word,definition,author,date_p,likes FROM definitions WHERE word like '"+id+"%'";
 	db.serialize(()=>{
 		db.all(filtre,(err,row)=>{
