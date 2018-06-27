@@ -2,6 +2,10 @@ body {
   background-color: lightblue;
 }
 
+textarea {
+  resize: none;
+}
+
 header {
 }
 
@@ -10,7 +14,7 @@ header a {
 }
 
 header a:hover {
-    text-decoration: none;
+  text-decoration: none;
   color: #f8f9fa;
 }
 
