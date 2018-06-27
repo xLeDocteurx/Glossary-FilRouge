@@ -11,6 +11,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public')); 
 //utilisation du css pour le cas où l'on choisit une lettre ( necessaire )
 app.use('/lettre/:id', express.static('public'));
+//utilisation du css pour le cas où l'on consulte sans sélectionner de lettre( necessaire )
+app.use('/glossary/', express.static('public'));
 //utilisation body-parser pour recuperer les données venant du client
 app.use(bodyparser.urlencoded({ extended: false}));
 //Lancement serveur sur le port 8080
@@ -33,6 +35,10 @@ let alph=['#','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
 app.get('/', (req, res) => {
+	res.render('index', {letters:alph});
+});
+
+app.get('/glossary', (req, res) => {
 	let ind="SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
 	db.serialize(()=>{
 		db.all(ind,(err,row)=>{
@@ -40,10 +46,10 @@ app.get('/', (req, res) => {
 				console.log(err.message);
 			}
 			if(row.length>0){
-				res.render('index',{wword:row,letters:alph})
+				res.render('glossary',{wword:row,letters:alph})
 			}else {
 				console.log('Pas de definitions trouvée');
-				res.render('index',{letters:alph})
+				res.render('glossary',{letters:alph})
 			}
 		})
 	})
@@ -58,9 +64,9 @@ app.get('/lettre/:id',(req,res)=>{
 				console.log(err.message)
 			}
 			if(row.length>0){
-				res.render('index',{wword:row,letters:alph})
+				res.render('glossary',{wword:row,letters:alph})
 			}else{
-				res.render('index',{letters:alph});
+				res.render('glossary',{letters:alph});
 				console.log('pas de données avec cette lettre');
 			}
 		})
