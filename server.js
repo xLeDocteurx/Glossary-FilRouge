@@ -15,6 +15,12 @@ app.use('/lettre/:id', express.static('public'));
 app.use(bodyparser.urlencoded({ extended: false}));
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
+//function pour els double tirets
+    function blbl(str) {
+        if (str == null) return '';
+        return String(str).
+            replace(/--/g, '&#151;');
+    };
 //Ouverture de la database ainsi que console log en cas d'erreur et si tout se passe bien
 let db= new sqlite3.Database('./glossaire',sqlite3.OPEN_READWRITE,(err)=>{
 	if (err){
@@ -62,10 +68,11 @@ app.get('/lettre/:id',(req,res)=>{
 })
 //Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
 app.post('/register',(req,res)=>{
-	var ruser=htmlspecialchars(req.body.register_username);
-	var remail=htmlspecialchars(req.body.register_username);
-	var rpass=htmlspecialchars(req.body.register_password);
+	var ruser=blbl(htmlspecialchars(req.body.register_username));
+	var remail=blbl(htmlspecialchars(req.body.register_username));
+	var rpass=blbl(htmlspecialchars(req.body.register_password));
 	var inscription="INSERT INTO users (username,email,password) VALUES ("+ruser+","+remail+","+rpass+")";
+	console.log(ruser)
 	db.serialize(()=>{
 		db.all(inscription,(err,row)=>{
 			if(err){
