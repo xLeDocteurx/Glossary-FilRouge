@@ -15,7 +15,7 @@ app.use('/lettre/:id', express.static('public'));
 app.use(bodyparser.urlencoded({ extended: false}));
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
-//function pour els double tirets
+//function pour les double tirets
     function blbl(str) {
         if (str == null) return '';
         return String(str).
@@ -71,16 +71,11 @@ app.post('/register',(req,res)=>{
 	var ruser=blbl(htmlspecialchars(req.body.register_username));
 	var remail=blbl(htmlspecialchars(req.body.register_username));
 	var rpass=blbl(htmlspecialchars(req.body.register_password));
-	var inscription="INSERT INTO users (username,email,password) VALUES ("+ruser+","+remail+","+rpass+")";
-	console.log(ruser)
+	var inscription='INSERT INTO users (username,email,password) VALUES ("'+ruser+'","'+remail+'","'+rpass+'")';
 	db.serialize(()=>{
 		db.all(inscription,(err,row)=>{
 			if(err){
 				console.log(err.message)
-			}else if (row.length<3){
-
-			}else{
-				
 			}
 		})
 	})
