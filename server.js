@@ -80,16 +80,10 @@ app.get("/lettre/:id", (req, res) => {
 //Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
 app.post("/register", (req, res) => {
   var ruser = blbl(htmlspecialchars(req.body.register_username));
-  var remail = blbl(htmlspecialchars(req.body.register_username));
+  var remail = blbl(htmlspecialchars(req.body.register_email));
   var rpass = blbl(htmlspecialchars(req.body.register_password));
   var inscription =
-    'INSERT INTO users (username,email,password) VALUES ("' +
-    ruser +
-    '","' +
-    remail +
-    '","' +
-    rpass +
-    '")';
+  `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
   db.serialize(() => {
     db.all(inscription, (err, row) => {
       if (err) {
