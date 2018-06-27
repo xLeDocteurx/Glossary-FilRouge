@@ -31,8 +31,7 @@ let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
 });
 //Variable pour afficher tout les marque-pages
 let alph=['+','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-// Initialisation de la première requete bdd sur la page accueil
-//Affichage des definitions si existantes, sinon renvoi de la page vierge
+
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
   res.render("index", { letters: alph });
