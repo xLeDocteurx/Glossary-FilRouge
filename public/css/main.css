@@ -20,7 +20,7 @@ header a:active {
 
 @font-face {
   font-family: "PWChalkf";
-  src: url("font/PWChalk.ttf");
+  src: url("/font/PWChalk.ttf");
 }
 
 h1 {
@@ -71,7 +71,7 @@ footer {
   border-radius: 20px;
   background-color: burlywood;
 
-  background-image: url(img/texture-craft-paper.jpg);
+  background-image: url(/img/texture-craft-paper.jpg);
   background-repeat: repeat;
 
   box-shadow: 0px 0px 5px 0px #888;
@@ -98,7 +98,7 @@ footer {
   text-align: center;
   padding-top: 55px;
 
-  background-image: url(img/etiquette.png);
+  background-image: url(/img/etiquette.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -132,7 +132,7 @@ footer {
   border-radius: 20px;
   background-color: red;
 
-  background-image: url(img/texture-craft-paper.jpg);
+  background-image: url(/img/texture-craft-paper.jpg);
   background-repeat: repeat;
 }
 
@@ -194,7 +194,7 @@ footer {
   height: 100%;
   width: 100%;
 
-  background-image: url(img/texture-paper.jpg);
+  background-image: url(/img/texture-paper.jpg);
   background-repeat: repeat;
 
   opacity: 0.1;
