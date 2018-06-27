@@ -107,10 +107,10 @@ app.get("/lettre/:id", (req, res) => {
 });
 //Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
 app.post("/register", (req, res) => {
-  var ruser = blbl(htmlspecialchars(req.body.register_username));
-  var remail = blbl(htmlspecialchars(req.body.register_username));
-  var rpass = blbl(htmlspecialchars(req.body.register_password));
-  var inscription =
+  let ruser = blbl(htmlspecialchars(req.body.register_username));
+  let remail = blbl(htmlspecialchars(req.body.register_username));
+  let rpass = blbl(htmlspecialchars(req.body.register_password));
+  let inscription =
     'INSERT INTO users (username,email,password) VALUES ("' +
     ruser +
     '","' +
@@ -129,6 +129,12 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/connect", (req, res) => {
+let username = blbl(htmlspecialchars(req.body.connect_username));
+let password = blbl(htmlspecialchars(req.body.connect_password));
 
+let results = `SELECT * FROM users WHERE username = ${username}`;
+
+console.log("résultats de la requette pour l'username : ");
+console.log(results);
 	res.redirect("/");
 });
