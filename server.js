@@ -31,7 +31,7 @@ let db= new sqlite3.Database('./glossaire',sqlite3.OPEN_READWRITE,(err)=>{
 	console.log('Base de données ouverte sans problème');
 });
 //Variable pour afficher tout les marque-pages
-let alph=['#','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+let alph=['+','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
 app.get('/', (req, res) => {
