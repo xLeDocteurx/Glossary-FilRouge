@@ -1,5 +1,5 @@
 <div id="booklets-container">
-    <% letters.forEach(function(items, index){ %>
+    <% letters.forEach((items, index)=>{ %>
         <div class="booklet 
         <% if (index <= 5) { %>
             x1
@@ -13,7 +13,10 @@
             x5
         <% } %>
         ">
-            <a href="/lettre/<%=items%>">
+            <a <%if(index==0) {%>
+                href="#" data-toggle="modal" data-target="#modalAddword">
+                <%}else {%>
+                href="/lettre/<%=items%>"><%}%>
                 <%=items%>
             </a>
         </div>

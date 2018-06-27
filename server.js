@@ -30,37 +30,9 @@ let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
   console.log("Base de données ouverte sans problème");
 });
 //Variable pour afficher tout les marque-pages
-let alph = [
-  "#",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z"
-];
+let alph=['+','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
-// Pae d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
+// Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
   res.render("index", { letters: alph });
 });
@@ -107,17 +79,11 @@ app.get("/lettre/:id", (req, res) => {
 });
 //Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
 app.post("/register", (req, res) => {
-  let ruser = blbl(htmlspecialchars(req.body.register_username));
-  let remail = blbl(htmlspecialchars(req.body.register_username));
-  let rpass = blbl(htmlspecialchars(req.body.register_password));
-  let inscription =
-    'INSERT INTO users (username,email,password) VALUES ("' +
-    ruser +
-    '","' +
-    remail +
-    '","' +
-    rpass +
-    '")';
+  var ruser = blbl(htmlspecialchars(req.body.register_username));
+  var remail = blbl(htmlspecialchars(req.body.register_email));
+  var rpass = blbl(htmlspecialchars(req.body.register_password));
+  var inscription =
+  `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
   db.serialize(() => {
     db.all(inscription, (err, row) => {
       if (err) {
