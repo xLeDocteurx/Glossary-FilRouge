@@ -1,5 +1,6 @@
 let bodyparser = require("body-parser");
 let express = require("express");
+let socket = require("socket.io");
 let moment = require("moment");
 let fs = require("fs");
 let app = express();
@@ -17,6 +18,7 @@ app.use("/glossary/", express.static("public"));
 app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
+let io = socket(server);
 //function pour les double tirets
 function blbl(str) {
   if (str == null) return "";
@@ -29,6 +31,8 @@ let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
   }
   console.log("Base de données ouverte sans problème");
 });
+//Variable pour stocker des donnés sur les visiteurs. c'est un array.
+let visitors = [];
 //Variable pour afficher tout les marque-pages
 let alph = [
   "+",
@@ -121,24 +125,26 @@ app.post("/register", (req, res) => {
   res.redirect("/");
 });
 //Lors d'un ajout de poste sur le modal
-app.post('/ajout',(req,res)=>{
-	var title=blbl(htmlspecialchars(req.body.add_word));
-	var define=blbl(htmlspecialchars(req.body.add_definition));
-	var postadd=`INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test','DATE(\'now\')','0')`;
-	db.serialize(()=>{
-		db.all(postadd,(err,row)=>{
-			if(err){
-				console.log(err.message);
-			}
-		})
-	})
+app.post("/ajout", (req, res) => {
+  var title = blbl(htmlspecialchars(req.body.add_word));
+  var define = blbl(htmlspecialchars(req.body.add_definition));
+  var postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test','DATE(\'now\')','0')`;
+  db.serialize(() => {
+    db.all(postadd, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+    });
+  });
 });
 
 app.post("/connect", (req, res) => {
   let username = blbl(htmlspecialchars(req.body.connect_username));
   let password = blbl(htmlspecialchars(req.body.connect_password));
 
-  let connection = `SELECT password FROM users WHERE username = ${username}`;
+  console.log(username);
+
+  let connection = `SELECT email, password FROM users WHERE username = '${username}'`;
 
   db.all(connection, (err, row) => {
     if (err) {
@@ -146,11 +152,57 @@ app.post("/connect", (req, res) => {
       return;
     }
     if (row.length > 0) {
-      console.log("résultats de la requette pour l'username : ");
+      console.log("Connection réussie");
       console.log(row);
+      res.render("index", { user: row.email, letters: alph });
     } else {
       console.log("Cet utilisateur n'existe pas dans la base de donné");
+      res.render("index", { letters: alph });
     }
   });
-  res.render("index", {letters: alph});
 });
+
+//Utilisation de socket pour récupérer les id des visiteurs et les associer apres connection aux identifiants de la base de donnés
+io.on("connection", socket => {
+  let visitor = new Visitor(socket.id);
+  socket.emit("handshake", visitor);
+  addvisitor(visitor);
+
+  socket.on("disconnect", function() {
+    subvisitor(visitor);
+    console.log(`${visitor.id} // Got disconnect!`);
+  });
+});
+
+class Visitor {
+  constructor(id) {
+    this.id = id;
+    this.email = "";
+  }
+}
+
+function addvisitor(data) {
+  visitors.push(data);
+  console.log("added a visitor to visitors :");
+  console.log(visitors);
+}
+
+function subvisitor(data) {
+  var i = visitors.indexOf(data.id);
+  visitors.splice(i, 1);
+  console.log("substracted datas from visitors :");
+  console.log(visitors);
+}
+
+function linkvisitor(data) {
+  var i = visitors.indexOf(
+    visitors.find(visitor => {
+      return visitor.id == socket.id;
+    })
+  );
+  visitors[i].email = data;
+  console.log("linked datas inside visitors :");
+  console.log(visitors);
+
+  addanuser();
+}
