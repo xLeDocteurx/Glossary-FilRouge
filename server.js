@@ -93,6 +93,19 @@ app.post("/register", (req, res) => {
   });
   res.redirect("/");
 });
+//Lors d'un ajout de poste sur le modal
+app.post('/ajout',(req,res)=>{
+	var title=blbl(htmlspecialchars(req.body.add_word));
+	var define=blbl(htmlspecialchars(req.body.add_definition));
+	var postadd=`INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test','DATE(\'now\')','0')`;
+	db.serialize(()=>{
+		db.all(postadd,(err,row)=>{
+			if(err){
+				console.log(err.message);
+			}
+		})
+	})
+});
 
 app.post("/connect", (req, res) => {
 let username = blbl(htmlspecialchars(req.body.connect_username));
