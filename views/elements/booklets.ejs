@@ -1,90 +1,21 @@
 <div id="booklets-container">
-<<<<<<< HEAD
-    <div class="booklet x1">
-        <a href="#">#</a>
-    </div>
-    <div class="booklet x1">
-        <a href="#">A</a>
-    </div>
-    <div class="booklet x1">
-        <a href="#">B</a>
-    </div>
-    <div class="booklet x1">
-        <a href="#">C</a>
-    </div>
-    <div class="booklet x1">
-        <a href="#">D</a>
-    </div>
-    <div class="booklet x1">
-        <a href="#">E</a>
-    </div>
-    <div class="booklet x2">
-        <a href="#">F</a>
-    </div>
-    <div class="booklet x2">
-        <a href="#">G</a>
-    </div>
-    <div class="booklet x2">
-        <a href="#">H</a>
-    </div>
-    <div class="booklet x2">
-        <a href="#">I</a>
-    </div>
-    <div class="booklet x2">
-        <a href="#">J</a>
-    </div>
-    <div class="booklet x3">
-        <a href="#">K</a>
-    </div>
-    <div class="booklet x3">
-        <a href="#">L</a>
-    </div>
-    <div class="booklet x3">
-        <a href="#">M</a>
-    </div>
-    <div class="booklet x3">
-        <a href="#">N</a>
-    </div>
-    <div class="booklet x3">
-        <a href="#">O</a>
-    </div>
-    <div class="booklet x4">
-        <a href="#">P</a>
-    </div>
-    <div class="booklet x4">
-        <a href="#">Q</a>
-    </div>
-    <div class="booklet x4">
-        <a href="#">R</a>
-    </div>
-    <div class="booklet x4">
-        <a href="#">S</a>
-    </div>
-    <div class="booklet x4">
-        <a href="#">T</a>
-    </div>
-    <div class="booklet x5">
-        <a href="#">U</a>
-    </div>
-    <div class="booklet x5">
-        <a href="#">V</a>
-    </div>
-    <div class="booklet x5">
-        <a href="#">W</a>
-    </div>
-    <div class="booklet x5">
-        <a href="#">X</a>
-    </div>
-    <div class="booklet x5">
-        <a href="#">Y</a>
-    </div>
-    <div class="booklet x5 zz">
-        <a href="#">Z</a>
-=======
-    <% letters.forEach(function(items){ %>
-        <div class="booklet x1">
-          <a href="/lettre/<%=items%>"><%=items%></a>
->>>>>>> 83a342e790f96d0f678af3a2fe06ab6e372ba871
-    </div>
-    <% }) %>
+    <% letters.forEach(function(items, index){ %>
+        <div class="booklet 
+        <% if (index <= 5) { %>
+            x1
+        <% } else if (index <= 10) { %>
+            x2
+        <% } else if (index <= 15) { %>
+            x3
+        <% } else if (index <= 20) { %>
+            x4
+        <% } else { %>
+            x5
+        <% } %>
+        ">
+            <a href="/lettre/<%=items%>">
+                <%=items%>
+            </a>
+        </div>
+        <% }) %>
 </div>
