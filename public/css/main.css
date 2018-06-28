@@ -224,6 +224,10 @@ footer {
   );
 }
 
+.mot {
+  line-height: 40px;
+}
+
 #cloudWord {
   width: 100%;
   /* height: 100%; */

@@ -26,10 +26,8 @@
                         <div id="content">
 
                             <%if(locals.wword){%>
-                                <%wword.forEach(function(mots){%>
-                                    <p><%=mots.word%> :<%=mots.definition%>.</p>
-                                    <%})%>
-                                        <%}%>
+                                <%- include('./elements/word', wword)%>
+                                    <%}%>
 
 
                         </div>

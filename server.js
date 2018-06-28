@@ -159,7 +159,7 @@ app.post("/connect", (req, res) => {
         console.log(
           `lutilisateur "${
             socket.id
-          }" s'est connecté avec succès avec le compte "${row}"`
+          }" s'est connecté avec succès avec le compte "${row.email}"`
         );
         linkvisitor(new Visitor(socket.id, row.email));
       });
@@ -213,9 +213,9 @@ function linkvisitor(data) {
       return visitor.id == data.id;
     })
   );
-  visitors[i].email = data;
+  visitors[i].email = data.email;
   console.log("linked datas inside visitors :");
   console.log(visitors);
 
-  addanuser();
+  // addanuser();
 }
