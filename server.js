@@ -138,7 +138,11 @@ app.post('/ajout',(req,res)=>{
 		})
 	})
 });
-
+//Au moment d'un delete de post
+app.post('/glossary',(req,res)=>{
+	var del=`DELETE FROM definitions WHERE word='';`;
+})
+//Au moment d'une tentative de connexion
 app.post("/connect", (req, res) => {
   let username = blbl(htmlspecialchars(req.body.connect_username));
   let password = blbl(htmlspecialchars(req.body.connect_password));
