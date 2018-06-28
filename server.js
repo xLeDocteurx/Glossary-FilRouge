@@ -19,7 +19,6 @@ app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
 let io = socket(server);
-let cande=["random"];
 //function pour les double tirets
 function blbl(str) {
 	if (str == null) return "";
@@ -32,6 +31,8 @@ let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
 	}
 	console.log("Base de données ouverte sans problème");
 });
+//Variable fantome pour montrer le bouton supprimer que sur la page specifique d'un mot
+let cande=["random"];
 //Variable pour stocker des donnés sur les visiteurs. c'est un array.
 let visitors = [];
 //Variable pour afficher tout les marque-pages
