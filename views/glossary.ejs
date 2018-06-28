@@ -9,6 +9,9 @@
 
             <div class="paper col-lg-8">
                 <div id="texture">
+                    <%if(locals.wword){%>
+                        <%- include('./elements/word', wword)%>
+                            <%}%>
                 </div>
 
                 <div class="lines">
@@ -24,11 +27,6 @@
 
                         </header>
                         <div id="content" class="row">
-
-                            <%if(locals.wword){%>
-                                <%- include('./elements/word', wword)%>
-                                    <%}%>
-
 
                         </div>
 

@@ -1,24 +1,24 @@
 <div id="booklets-container">
     <% letters.forEach((items, index)=>{ %>
-        <div class="booklet 
-        <% if (index <= 5) { %>
-            x1
-        <% } else if (index <= 10) { %>
-            x2
-        <% } else if (index <= 15) { %>
-            x3
-        <% } else if (index <= 20) { %>
-            x4
-        <% } else { %>
-            x5
-        <% } %>
-        ">
-            <a <%if(index==0) {%>
-                href="#" data-toggle="modal" data-target="#modalAddword">
-                <%}else {%>
-                href="/lettre/<%=items%>"><%}%>
-                <%=items%>
-            </a>
-        </div>
-        <% }) %>
+    <div class="booklet 
+    <% if (index <= 5) { %>
+    x1
+    <% } else if (index <= 10) { %>
+    x2
+    <% } else if (index <= 15) { %>
+    x3
+    <% } else if (index <= 20) { %>
+    x4
+    <% } else { %>
+    x5
+    <% } %>
+    ">
+    <a <%if(index==0) {%>
+        href="#" data-toggle="modal" data-target="#modalAddword">
+        <%}else {%>
+        href="/lettre/<%=items%>"><%}%>
+        <%=items%>
+    </a>
+</div>
+<% }) %>
 </div>
