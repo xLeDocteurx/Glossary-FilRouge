@@ -194,7 +194,6 @@ app.post("/connect", (req, res) => {
       		);
       	linkvisitor(new Visitor(socket.id, row.email));
       });
-      // console.log(row);
 
       // linkvisitor({ id: socket.id });
 
@@ -248,5 +247,7 @@ function linkvisitor(data) {
 	console.log("linked datas inside visitors :");
 	console.log(visitors);
 
-  // addanuser();
+  io.on("connection", socket => {
+    socket.emit("hug", data);
+  });
 }

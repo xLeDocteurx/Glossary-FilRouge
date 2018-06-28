@@ -7,10 +7,12 @@ socket.on("handshake", data => {
   );
 });
 
-socket.on("getid", () => {
-    console.log("////////////////////////// BOUYAKASHA ///////////////////////");
-//   let id = localStorage.getItem("socket").id;
-//   socket.emit("receveid", id);
+socket.on("hug", data => {
+  localStorage.setItem(
+    "socket",
+    JSON.stringify({ id: data.id, email: data.email })
+  );
+  console.log(`${data}`);
 });
 
 // if (!localStorage.getItem("user")) {
