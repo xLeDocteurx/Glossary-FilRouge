@@ -19,6 +19,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
 let io = socket(server);
+let cande=["random"];
 //function pour les double tirets
 function blbl(str) {
 	if (str == null) return "";
@@ -147,7 +148,7 @@ app.get('/glossary/:word',(req,res)=>{
 			if(err){
 				console.log(err.message)
 			}if(row.length>0){
-				res.render('glossary',{wword:row, letters:alph})
+				res.render('glossary',{wword:row, letters:alph, candel:cande})
 			}else {
 				res.redirect('/glossary')
 			}
