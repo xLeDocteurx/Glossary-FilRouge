@@ -23,11 +23,20 @@
                         <header class="row">
 
                         </header>
-                        <div id="content">
+                        <div id="content" class="row">
 
                             <%if(locals.wword){%>
+<<<<<<< HEAD
                                 <%- include('./elements/word', wword)%>
                                     <%}%>
+=======
+                                <%wword.forEach(function(mots){%>
+                                    <p>
+                                        <%=mots.word%> :
+                                            <%=mots.definition%>.</p>
+                                    <%})%>
+                                        <%}%>
+>>>>>>> 8ac42dd3ca6e4923971526d02823da4b5b75e574
 
 
                         </div>
