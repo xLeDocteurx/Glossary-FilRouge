@@ -1,5 +1,18 @@
 body {
-  background-color: lightblue;
+  background-color: burlywood;
+}
+
+body a {
+  color: #343a40;
+}
+
+body a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+body a:active {
+  color: white;
 }
 
 textarea {
@@ -7,6 +20,8 @@ textarea {
 }
 
 header {
+  background-color: white;
+  padding-left: 50px;
 }
 
 header a {
@@ -36,17 +51,22 @@ p {
 }
 
 #glossary {
-  padding-left: 110px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  /* padding-right: 20px; */
+  /* padding-top: 7px; */
+  /* z-index: 5; */
 }
 
 #content {
-  min-height: 1000px;
+  min-height: 1100px;
 }
 
 footer {
+  background-color: white;
   font-family: "Swanky and Moo Moo";
   font-size: 12px;
+  padding-left: 110px;
 }
 
 #logoSimplon {
@@ -143,9 +163,9 @@ footer {
 /* Style marque-page */
 #booklets-container {
   position: absolute;
-  z-index: 4;
+  /* z-index: 2; */
   top: 30px;
-  right: -35px;
+  right: -11px;
 }
 
 .nav-tabs {
@@ -153,9 +173,9 @@ footer {
 
 .booklet {
   /* rotate: 10; */
-  padding: 7px 7px 7px 18px;
+  /* padding: 7px 5px 7px 15px; */
   /* border-top-left-radius: 10px; */
-  border-radius: 7px;
+  border-radius: 0px 7px 7px 0px;
   box-shadow: 0px 0px 5px 0px #888;
 }
 
@@ -181,13 +201,13 @@ footer {
 
 /* Style feuille de papier */
 .paper {
-  padding-bottom: 25px;
-  padding-top: 53px;
+  /* padding-bottom: 25px; */
+  /* padding-top: 53px; */
   /* width: 450px; */
-  background: rgba(255, 255, 255);
-  box-shadow: 0px 0px 5px 0px #888;
+  /* background: rgba(255, 255, 255); */
+  /* box-shadow: 0px 0px 5px 0px #888; */
 
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 #texture {
@@ -215,17 +235,18 @@ footer {
 }
 
 .lines {
-  height: calc(100% - 40px);
+  /* height: calc(100% - 40px); */
   width: 100%;
   background-image: repeating-linear-gradient(
     white 0px,
     white 24px,
     steelblue 25px
   );
+  box-shadow: 0px 0px 5px 0px #888;
 }
 
 .mot {
-  line-height: 40px;
+  line-height: 25px;
 }
 
 #cloudWord {
@@ -239,7 +260,7 @@ footer {
   height: 17px;
   left: -75px;
   top: 4px;
-  z-index: 3;
+  z-index: 2;
 }
 
 .ring {
