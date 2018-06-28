@@ -161,20 +161,18 @@ app.get('/glossary/:word',(req,res)=>{
 app.post('/glossary',(req,res)=>{
 	var butt=req.body.deleted;
 	var del=`DELETE FROM definitions WHERE word='${butt}';`;
-	var log=`INSERT INTO delete-logs (word,author,date_delete) VALUES('${butt}','email','date(\'now\')');`
+	var log=`INSERT INTO logs (word,author,date_del) VALUES('${butt}','email',"date('now')");`
 	db.serialize(()=>{
-		db.all(del,(err,row)=>{
+		db.all(log,(err,row)=>{
 			if(err){
-				console.log(error);
+				console.log(err.message);
 			}
-			db.serialize(()=>{
-				db.all(log,(err,row)=>{
-					if(err){
-						console.log(err.message)
-					}
-				})
+			db.all(del,(err,row)=>{
+				if(err){
+					console.log(err.message)
+				}
 			})
-						res.redirect('/glossary')
+			res.redirect('/glossary')
 		})
 	})
 })
@@ -256,7 +254,7 @@ function linkvisitor(data) {
 	console.log("linked datas inside visitors :");
 	console.log(visitors);
 
-  io.on("connection", socket => {
-    socket.emit("hug", data);
-  });
+	io.on("connection", socket => {
+		socket.emit("hug", data);
+	});
 }
