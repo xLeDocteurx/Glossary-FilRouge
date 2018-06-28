@@ -152,9 +152,17 @@ app.post("/connect", (req, res) => {
       console.error(err.message);
       return;
     }
-    if (row.length > 0) {
+    if (row != []) {
       console.log("Connection réussie");
-      console.log(socket.id);
+      // socket.emit("getid");
+      io.on("connection", socket => {
+        console.log(
+          `lutilisateur "${
+            socket.id
+          }" s'est connecté avec succès avec le compte "${row}"`
+        );
+        linkvisitor(new Visitor(socket.id, row.email));
+      });
       // console.log(row);
 
       // linkvisitor({ id: socket.id });
@@ -173,16 +181,16 @@ io.on("connection", socket => {
   socket.emit("handshake", visitor);
   addvisitor(visitor);
 
-  socket.on("disconnect", function() {
+  socket.on("disconnect", () => {
     subvisitor(visitor);
     console.log(`${visitor.id} // Got disconnect!`);
   });
 });
 
 class Visitor {
-  constructor(id) {
+  constructor(id, email) {
     this.id = id;
-    this.email = "";
+    arguments.length > 1 ? this.email = email : this.email = "";
   }
 }
 
