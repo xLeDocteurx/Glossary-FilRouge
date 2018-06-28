@@ -1,8 +1,8 @@
 <%wword.forEach((mot) => {%>
-    <p class="mot">
+    <a href="/glossary/<%=mot.word%>"><p class="mot">
         <%=mot.word%> :
             <%=mot.definition%>.
-    </p>
+    </p></a>
     <form action="/glossary" method="POST">
     	<button name="deleted" type="submit" value="<%=mot.word%>">Supprimer un mot</button>
     </form>
