@@ -1,62 +1,62 @@
 <%- include('./parts/head') %>
-    <%- include('./parts/header') %>
+<%- include('./parts/header') %>
 
-        <div class="blank_row row"></div>
+<div class="blank_row row"></div>
 
-        <div class="row mx-0">
+<div class="row mx-0">
 
-            <div class="col-lg-2"></div>
+    <div class="col-lg-2"></div>
 
-            <div class="paper col-lg-8">
-                <div id="texture">
-                     <%if(locals.wword){%>
-                                <%- include('./elements/word', wword)%>
-                                    <%}%>
-                </div>
+    <div class="paper col-lg-8">
+        <div id="texture">
+           <%if(locals.wword){%>
+           <%- include('./elements/word', wword)%>
+           <%}%>
+       </div>
 
-                <div class="lines">
-                    <div class="lines2"></div>
-
-
-                    <div id="glossary">
-
-                        <!-- <div class="inner-hard-cover"></div> -->
-                        <!-- <div id="" class="hard-cover frontc"><div class="etiquette"></div></div> -->
-
-                        <header class="row">
-
-                        </header>
-                        <div id="content" class="row">
-
-                           
-                        </div>
+       <div class="lines">
+        <div class="lines2"></div>
 
 
+        <div id="glossary">
 
-                        <footer class="row">
-                            <img src="img/logo.png" id="logoSimplon" alt="logoSimplon">
-                            <p>Simplon 2018</p>
-                            <p>Valentin, Christopher, Geoffrey, Vanessa</p>
-                        </footer>
+            <!-- <div class="inner-hard-cover"></div> -->
+            <!-- <div id="" class="hard-cover frontc"><div class="etiquette"></div></div> -->
 
-                    </div>
+            <header class="row">
 
-                    <%- include('./elements/booklets') %>
+            </header>
+            <div id="content" class="row">
 
-                        <!-- <div class="inner-hard-cover"></div> -->
-                        <div class="hard-cover"></div>
-
-                        <%- include('./elements/rings') %>
-
-
-                </div>
-
+             
             </div>
 
-            <div class="col-lg-2"></div>
+
+
+            <footer class="row">
+                <img src="img/logo.png" id="logoSimplon" alt="logoSimplon">
+                <p>Simplon 2018</p>
+                <p>Valentin, Christopher, Geoffrey, Vanessa</p>
+            </footer>
 
         </div>
 
-        <div class="blank_row row"></div>
+        <%- include('./elements/booklets') %>
 
-        <%- include('./parts/footer') %>
+        <!-- <div class="inner-hard-cover"></div> -->
+        <div class="hard-cover"></div>
+
+        <%- include('./elements/rings') %>
+
+
+    </div>
+
+</div>
+
+<div class="col-lg-2"></div>
+
+</div>
+
+<div class="blank_row row"></div>
+
+<%- include('./parts/footer') %>
