@@ -8,10 +8,6 @@
             <div class="col-lg-2"></div>
 
             <div class="paper col-lg-8 pl-0 pr-4">
-                <div class="hard-cover">
-
-
-                </div>
 
                 <div id="texture pr-4">
                 </div>
@@ -28,17 +24,8 @@
                         <header class="row pb-5">
 
                         </header>
-                        <div id="content" class="row">
-                            <a href="/glossary/<%=mot.word%>">
-                                <p class="mot">
-                                    <b><%=mot.word%></b> :
-                                        <%=mot.definition%>.
-                                </p>
-                            </a>
-
-                            <form action="/glossary" method="POST">
-                                <button name="deleted" type="submit" value="<%=mot.word%>">Supprimer un mot</button>
-                            </form>
+                        <div id="content_single" class="row">
+                            <%- include('./elements/single_word') %>
                         </div>
                         <!-- <footer class="row">
                             <img src="img/logo.png" id="logoSimplon" alt="logoSimplon">
@@ -48,11 +35,10 @@
 
                     </div>
 
-                    <%- include('./elements/booklets') %>
 
                         <!-- <div class="inner-hard-cover"></div> -->
+                        <!-- <%- include('./elements/holes_only') %> -->
 
-                        <%- include('./elements/rings') %>
 
 
                 </div>
