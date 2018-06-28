@@ -140,7 +140,16 @@ app.post("/ajout", (req, res) => {
 });
 //Au moment d'un delete de post
 app.post('/glossary',(req,res)=>{
-	var del=`DELETE FROM definitions WHERE word='';`;
+	var butt=req.body.deleted;
+	var del=`DELETE FROM definitions WHERE word='${butt}';`;
+	db.serialize(()=>{
+		db.all(del,(err,row)=>{
+			if(err){
+				console.log(error);
+			}
+			res.redirect('/glossary')
+		})
+	})
 })
 //Au moment d'une tentative de connexion
 app.post("/connect", (req, res) => {
