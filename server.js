@@ -161,12 +161,20 @@ app.get('/glossary/:word',(req,res)=>{
 app.post('/glossary',(req,res)=>{
 	var butt=req.body.deleted;
 	var del=`DELETE FROM definitions WHERE word='${butt}';`;
+	var log=`INSERT INTO delete-logs (word,author,date_delete) VALUES('${butt}','email','date(\'now\')');`
 	db.serialize(()=>{
 		db.all(del,(err,row)=>{
 			if(err){
 				console.log(error);
 			}
-			res.redirect('/glossary')
+			db.serialize(()=>{
+				db.all(log,(err,row)=>{
+					if(err){
+						console.log(err.message)
+					}
+				})
+			})
+						res.redirect('/glossary')
 		})
 	})
 })
@@ -177,7 +185,7 @@ app.post("/connect", (req, res) => {
 
 	console.log(username);
 
-	let connection = `SELECT email, password FROM users WHERE username = '${username}'`;
+	let connection = `SELECT email, password FROM users WHERE username = '${username}';`;
 
 	db.all(connection, (err, row) => {
 		if (err) {
