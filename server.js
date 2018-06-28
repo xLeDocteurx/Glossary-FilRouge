@@ -138,6 +138,23 @@ app.post("/ajout", (req, res) => {
     });
   });
 });
+//Lors d'un clic sur un mot spécifique 
+app.get('/glossary/:word',(req,res)=>{
+	var id=req.params.word
+	var motss=`SELECT word,definition FROM definitions WHERE word='${id}';`;
+	db.serialize(()=>{
+		db.all(motss,(err,row)=>{
+			if(err){
+				console.log(err.message)
+			}if(row.length>0){
+				res.render('glossary',{wword:row, letters:alph})
+			}else {
+				res.redirect('/glossary')
+			}
+
+		})
+	})
+})
 //Au moment d'un delete de post
 app.post('/glossary',(req,res)=>{
 	var butt=req.body.deleted;
