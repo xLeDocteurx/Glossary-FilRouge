@@ -149,7 +149,7 @@ app.get('/glossary/:word',(req,res)=>{
 			if(err){
 				console.log(err.message)
 			}if(row.length>0){
-				res.render('glossary',{wword:row, letters:alph, candel:cande})
+				res.render('word',{mot:row[0], letters:alph, candel:cande})
 			}else {
 				res.redirect('/glossary')
 			}
