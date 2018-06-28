@@ -3,7 +3,9 @@
 	<%=mot.word%> :
 	<%=mot.definition%>.
 </p></a>
+<% if(locals.candel){%>
 <form action="/glossary" method="POST">
 	<button name="deleted" type="submit" value="<%=mot.word%>">Supprimer un mot</button>
 </form>
+<%}%>
 <%})%>

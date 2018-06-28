@@ -31,6 +31,8 @@ let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
 	}
 	console.log("Base de données ouverte sans problème");
 });
+//Variable fantome pour montrer le bouton supprimer que sur la page specifique d'un mot
+let cande=["random"];
 //Variable pour stocker des donnés sur les visiteurs. c'est un array.
 let visitors = [];
 //Variable pour afficher tout les marque-pages
@@ -147,7 +149,7 @@ app.get('/glossary/:word',(req,res)=>{
 			if(err){
 				console.log(err.message)
 			}if(row.length>0){
-				res.render('glossary',{wword:row, letters:alph})
+				res.render('glossary',{wword:row, letters:alph, candel:cande})
 			}else {
 				res.redirect('/glossary')
 			}
