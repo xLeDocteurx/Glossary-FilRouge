@@ -139,9 +139,9 @@ app.post("/ajout", (req, res) => {
   });
 });
 //Au moment d'un delete de post
-app.post('/glossary',(req,res)=>{
-	var del=`DELETE FROM definitions WHERE word='';`;
-})
+app.post("/glossary", (req, res) => {
+  var del = `DELETE FROM definitions WHERE word='';`;
+});
 //Au moment d'une tentative de connexion
 app.post("/connect", (req, res) => {
   let username = blbl(htmlspecialchars(req.body.connect_username));
@@ -157,7 +157,7 @@ app.post("/connect", (req, res) => {
       return;
     }
     if (row != []) {
-      console.log("Connection réussie");
+      row = row[0];
       // socket.emit("getid");
       io.on("connection", socket => {
         console.log(
@@ -165,9 +165,8 @@ app.post("/connect", (req, res) => {
             socket.id
           }" s'est connecté avec succès avec le compte "${row.email}"`
         );
-        linkvisitor(new Visitor(socket.id, row.email));
+        linkvisitor({ id: socket.id, email: row.email });
       });
-      // console.log(row);
 
       // linkvisitor({ id: socket.id });
 
@@ -194,7 +193,7 @@ io.on("connection", socket => {
 class Visitor {
   constructor(id, email) {
     this.id = id;
-    arguments.length > 1 ? this.email = email : this.email = "";
+    arguments.length > 1 ? (this.email = email) : (this.email = "");
   }
 }
 
@@ -212,6 +211,8 @@ function subvisitor(data) {
 }
 
 function linkvisitor(data) {
+  console.log("data : ");
+  console.log(data);
   var i = visitors.indexOf(
     visitors.find(visitor => {
       return visitor.id == data.id;
@@ -221,5 +222,7 @@ function linkvisitor(data) {
   console.log("linked datas inside visitors :");
   console.log(visitors);
 
-  // addanuser();
+  io.on("connection", socket => {
+    socket.emit("hug", data);
+  });
 }
