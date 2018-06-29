@@ -15,11 +15,10 @@
             </button>
         </form>
 
-        <form action="/edit" method="POST">
-            <button class="btn btn-warning" name="edit" type="submit" value="<%=mot.word%>">
+        <a href="#" data-toggle="modal" data-target="#modalEditpost">
+            <button class="btn btn-warning" name="edit" value="<%=mot.word%>">
                 <i class="fas fa-edit"></i>
-            </button>
-        </form>
+            </button></a>
 
         <form action="/glossary" method="POST">
             <button class="btn btn-danger" name="deleted" type="submit" value="<%=mot.word%>">
