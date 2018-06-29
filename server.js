@@ -13,7 +13,7 @@ app.use(express.static("public"));
 //utilisation du css pour le cas où l'on choisit une lettre ( necessaire )
 app.use("/lettre/:id", express.static("public"));
 //utilisation du css pour le cas où l'on consulte sans sélectionner de lettre( necessaire )
-app.use("/glossary/", express.static("public"));
+app.use("/glossary/:word", express.static("public"));
 //utilisation body-parser pour recuperer les données venant du client
 app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
@@ -140,6 +140,7 @@ app.post("/ajout", (req, res) => {
     });
   });
 });
+<<<<<<< HEAD
 //Lors d'un clic sur un mot spécifique
 app.get("/glossary/:word", (req, res) => {
   let id = req.params.word;
@@ -172,6 +173,24 @@ app.get("/glossary/:word", (req, res) => {
     });
   });
 });
+=======
+//Lors d'un clic sur un mot spécifique 
+app.get('/glossary/:word',(req,res)=>{
+	var id=req.params.word
+	var motss=`SELECT word,definition FROM definitions WHERE word='${id}';`;
+	db.serialize(()=>{
+		db.all(motss,(err,row)=>{
+			if(err){
+				console.log(err.message)
+			}if(row.length>0){
+				res.render('word',{mot:row[0], letters:alph, candel:cande})
+			}else{
+				res.redirect('/');
+			}
+		})
+	})
+})
+>>>>>>> c0cec58e790d55d55105a5dbbefa1990c22f7743
 //Au moment d'un delete de post
 app.post("/glossary", (req, res) => {
   var butt = req.body.deleted;
@@ -248,6 +267,13 @@ io.on("connection", socket => {
     console.log(`${visitor.id} // Got disconnect!`);
   });
 });
+//Lors d'une recherche
+app.post('/search',(req,res)=>{
+	var src=req.body.searc;
+	var ur='/glossary/'+src;
+	console.log(ur)
+	res.redirect(ur)
+})
 
 class Visitor {
   constructor(id, email) {
