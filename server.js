@@ -13,7 +13,7 @@ app.use(express.static("public"));
 //utilisation du css pour le cas où l'on choisit une lettre ( necessaire )
 app.use("/lettre/:id", express.static("public"));
 //utilisation du css pour le cas où l'on consulte sans sélectionner de lettre( necessaire )
-app.use("/glossary/", express.static("public"));
+app.use("/glossary/:word", express.static("public"));
 //utilisation body-parser pour recuperer les données venant du client
 app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
@@ -150,10 +150,9 @@ app.get('/glossary/:word',(req,res)=>{
 				console.log(err.message)
 			}if(row.length>0){
 				res.render('word',{mot:row[0], letters:alph, candel:cande})
-			}else {
-				res.redirect('/glossary')
+			}else{
+				res.redirect('/');
 			}
-
 		})
 	})
 })
@@ -223,6 +222,13 @@ io.on("connection", socket => {
 		console.log(`${visitor.id} // Got disconnect!`);
 	});
 });
+//Lors d'une recherche
+app.post('/search',(req,res)=>{
+	var src=req.body.searc;
+	var ur='/glossary/'+src;
+	console.log(ur)
+	res.redirect(ur)
+})
 
 class Visitor {
 	constructor(id, email) {
