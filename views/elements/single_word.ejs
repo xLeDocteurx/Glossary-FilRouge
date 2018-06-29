@@ -1,19 +1,25 @@
 <div class="col-12 ml-5">
     <div class="row ml-5">
         <p class="mot">
-            <b>
+            <b id="title">
                 <%=mot.word%>
             </b> :
             <%=mot.definition%>.
         </p>
     </div>
 
+
     <div class="row ml-5">
-        <form action="/like" method="POST">
-            <button class="btn btn-success" name="like" type="submit" value="<%=mot.word%>">
+        <!-- <form action="/like" method="POST"> -->
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text" id="btnGroupAddon"><% likes.length %> Likes</div>
+            </div>
+            <button class="btn btn-success" name="like" value="<%=mot.word%>" onclick="likethis("<%=mot.word%>")">
                 <i class="fas fa-thumbs-up"></i>
             </button>
-        </form>
+        </div>
+        <!-- </form> -->
 
         <form action="/edit" method="POST">
             <button class="btn btn-warning" name="edit" type="submit" value="<%=mot.word%>">

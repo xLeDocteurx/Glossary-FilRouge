@@ -147,18 +147,25 @@ app.get("/glossary/:word", (req, res) => {
   //selectionner tous les likes d'un mot
   // let likes = `SELECT * FROM likes WHERE likes.definition = ${word}`;
   //selectioner et fusionner likes et mots
-  // let likes_join = `SELECT DISTINCT * FROM likes 
-  // LEFT JOIN definitions ON definitions.word = likes.definition
-  // WHERE word = ${id}`;
+
+  let likes = `SELECT * FROM likes
+  WHERE item = '${id}'`;
 
   let motss = `SELECT word,definition FROM definitions WHERE word='${id}';`;
   db.serialize(() => {
     db.all(motss, (err, row) => {
+      console.log(row);
       if (err) {
         console.log(err.message);
       }
       if (row.length > 0) {
-        res.render("word", { mot: row[0], letters: alph, candel: cande });
+        db.all(likes, (errr, roww) => {
+          console.log(roww);
+          if (err) {
+            console.log(err.message);
+          }
+          res.render("word", { mot: row[0], likes: roww, letters: alph, candel: cande});
+      });
       } else {
         res.redirect("/glossary");
       }
@@ -191,7 +198,7 @@ app.post("/connect", (req, res) => {
 
   console.log(username);
 
-  let connection = `SELECT email, password FROM users WHERE username = '${username}';`;
+  let connection = `SELECT * FROM users WHERE username = '${username}';`;
 
   db.all(connection, (err, row) => {
     if (err) {
@@ -207,7 +214,7 @@ app.post("/connect", (req, res) => {
             socket.id
           }" s'est connecté avec succès avec le compte "${row.email}"`
         );
-        linkvisitor(new Visitor(socket.id, row.email));
+        linkvisitor({ id: socket.id, email: row.email, user: row.username });
       });
 
       // linkvisitor({ id: socket.id });
@@ -226,7 +233,15 @@ io.on("connection", socket => {
   socket.emit("handshake", visitor);
   addvisitor(visitor);
 
-  io.on("like", () => {});
+  io.on("like", data => {
+    //créer un like
+    let word = data.word;
+    let user = data.user;
+    let like = `INSERT INTO likes (user, definition) VALUES  ('${user}', '${word}');`;
+    console.log(
+      `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
+    );
+  });
 
   socket.on("disconnect", () => {
     subvisitor(visitor);
@@ -243,15 +258,15 @@ class Visitor {
 
 function addvisitor(data) {
   visitors.push(data);
-  console.log("added a visitor to visitors :");
-  console.log(visitors);
+  // console.log("added a visitor to visitors :");
+  // console.log(visitors);
 }
 
 function subvisitor(data) {
   var i = visitors.indexOf(data.id);
   visitors.splice(i, 1);
-  console.log("substracted datas from visitors :");
-  console.log(visitors);
+  // console.log("substracted datas from visitors :");
+  // console.log(visitors);
 }
 
 function linkvisitor(data) {
@@ -261,8 +276,8 @@ function linkvisitor(data) {
     })
   );
   visitors[i].email = data.email;
-  console.log("linked datas inside visitors :");
-  console.log(visitors);
+  // console.log("linked datas inside visitors :");
+  // console.log(visitors);
 
   io.on("connection", socket => {
     socket.emit("hug", data);
