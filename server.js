@@ -153,13 +153,15 @@ app.post("/source", (req, res) => {
   let item = req.body.add_linkitem;
   let link = req.body.add_link;
   let linkname = req.body.add_linkname;
-  let linkadd = `INSERT INTO links (item, name, href) VALUES ('${add_linkitem}','${linkname}','${link}')`;
+  let linkadd = `INSERT INTO links (item, name, href) VALUES ('${item}','${linkname}','${link}')`;
 
   db.serialize(() => {
-    if (err) {
-      console.log(err.message);
-    }
-    res.redirect(`glossary/${word}`);
+    db.all(linkadd, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      res.redirect(`glossary/${item}`);
+    });
   });
 });
 
@@ -180,13 +182,13 @@ app.get("/glossary/:word", (req, res) => {
   let motss = `SELECT word,definition FROM definitions WHERE word='${id}';`;
   db.serialize(() => {
     db.all(motss, (err, row) => {
-      console.log(row);
+      // console.log(row);
       if (err) {
         console.log(err.message);
       }
       if (row.length > 0) {
         db.all(links, (errr, roww) => {
-          console.log(roww);
+          // console.log(roww);
           if (errr) {
             console.log(errr.message);
           }
@@ -312,8 +314,8 @@ function addvisitor(data) {
 function subvisitor(data) {
   let i = visitors.indexOf(data.id);
   visitors.splice(i, 1);
-  console.log("substracted datas from visitors :");
-  console.log(visitors);
+  // console.log("substracted datas from visitors :");
+  // console.log(visitors);
 }
 
 function linkvisitor(data) {
@@ -323,8 +325,8 @@ function linkvisitor(data) {
     })
   );
   visitors[i].email = data.email;
-  console.log("linked datas inside visitors :");
-  console.log(visitors);
+  // console.log("linked datas inside visitors :");
+  // console.log(visitors);
 
   io.on("connection", socket => {
     socket.emit("hug", data);

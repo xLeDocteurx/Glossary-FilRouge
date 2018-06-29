@@ -1,5 +1,20 @@
 <div class="row px-0">
-    <a href="<%= link.href %>" target="_blank">
-        <%= link.name %>
-    </a>
+
+    <!-- <form action="/like" method="POST"> -->
+    <div class="input-group input-group-sm">
+
+
+        <div class="input-group-prepend">
+            <div class="input-group-text" id="btnGroupAddon">XXX Likes</div>
+        </div>
+        <button class="btn btn-sm btn-success" name="like" value="<%=mot.word%>" onclick="likethis(" <%=mot.word%>")">
+            <i class="fas fa-thumbs-up"></i>
+        </button>
+
+
+        <a class="ml-5" href="<%= link.href %>" target="_blank">
+            <i><%= link.name %></i>
+        </a>
+    </div>
+    <!-- </form> -->
 </div>

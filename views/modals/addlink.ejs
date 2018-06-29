@@ -2,10 +2,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                        <div name="add_linkitem"><b><%= mot.word %></b></div>
                 </div>
                 <div class="modal-content">
                     <form class="d-flex flex-column" action="/source" method="POST">
+                        <div name="add_linkitem"><b><%= mot.word %></b></div>
                         <input name="add_linkname" type="text" placeholder="Title of your link">
                         <input name="add_link" type="text" placeholder="http//yourlink.com">
                         <button class="btn" type="submit">Add this source</button>
