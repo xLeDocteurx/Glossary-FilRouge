@@ -15,7 +15,7 @@ app.use("/lettre/:id", express.static("public"));
 //utilisation du css pour le cas où l'on consulte sans sélectionner de lettre( necessaire )
 app.use("/glossary/", express.static("public"));
 //cas où l'on choisit un mot
-app.use('/glossary/:word',express.static('public'))
+app.use("/glossary/:word", express.static("public"));
 //utilisation body-parser pour recuperer les données venant du client
 app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
@@ -94,61 +94,76 @@ app.get("/glossary", (req, res) => {
 });
 //Page spécifique peu importe le marque page appuyé ( protection a ajouter )
 app.get("/lettre/:id", (req, res) => {
-	let id = htmlspecialchars(req.params.id);
-	let filtre =
-	"SELECT word,definition,author,date_p,likes FROM definitions WHERE word like '" +
-	id +
-	"%'";
-	db.serialize(() => {
-		db.all(filtre, (err, row) => {
-			if (err) {
-				console.log(err.message);
-			}
-			if (row.length > 0) {
-				res.render("glossary", { wword: row, letters: alph });
-			} else {
-				res.render("glossary", { letters: alph });
-				console.log("pas de données avec cette lettre");
-			}
-		});
-	});
+  let id = htmlspecialchars(req.params.id);
+  let filtre =
+    "SELECT word,definition,author,date_p,likes FROM definitions WHERE word like '" +
+    id +
+    "%'";
+  db.serialize(() => {
+    db.all(filtre, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      if (row.length > 0) {
+        res.render("glossary", { wword: row, letters: alph });
+      } else {
+        res.render("glossary", { letters: alph });
+        console.log("pas de données avec cette lettre");
+      }
+    });
+  });
 });
 //Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
 app.post("/register", (req, res) => {
-	let ruser = blbl(htmlspecialchars(req.body.register_username));
-	let remail = blbl(htmlspecialchars(req.body.register_email));
-	let rpass = blbl(htmlspecialchars(req.body.register_password));
-	let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
-	db.serialize(() => {
-		db.all(inscription, (err, row) => {
-			if (err) {
-				console.log(err.message);
-			}
-		});
-	});
-	res.redirect("/");
+  let ruser = blbl(htmlspecialchars(req.body.register_username));
+  let remail = blbl(htmlspecialchars(req.body.register_email));
+  let rpass = blbl(htmlspecialchars(req.body.register_password));
+  let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
+  db.serialize(() => {
+    db.all(inscription, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+    });
+  });
+  res.redirect("/");
 });
-//edit d'un poste 
-app.post('/edit',(req,res)=>{
-	let ed=req.body.editpost;
-	let edi=`UPDATE `
-	console.log(ed)
-})
+//edit d'un poste
+app.post("/edit", (req, res) => {
+  let ed = req.body.editpost;
+  let edi = `UPDATE `;
+  console.log(ed);
+});
 //Lors d'un ajout de poste sur le modal
 app.post("/ajout", (req, res) => {
-	let title = blbl(htmlspecialchars(req.body.add_word));
-	let define = req.body.add_definition;
-	let postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
-	db.serialize(() => {
-		db.all(postadd, (err, row) => {
-			if (err) {
-				console.log(err.message);
-			}
-			res.redirect("/glossary");
-		});
-	});
+  let title = blbl(htmlspecialchars(req.body.add_word));
+  let define = req.body.add_definition;
+  let postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
+  db.serialize(() => {
+    db.all(postadd, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      res.redirect("/glossary");
+    });
+  });
 });
-//Lors d'un clic sur un mot spécifique 
+//Lors de l'ajout d'un lien vers une source sur une définition
+app.post("/source", (req, res) => {
+  let item = req.body.add_linkitem;
+  let link = req.body.add_link;
+  let linkname = req.body.add_linkname;
+  let linkadd = `INSERT INTO links (item, name, href) VALUES ('${add_linkitem}','${linkname}','${link}')`;
+
+  db.serialize(() => {
+    if (err) {
+      console.log(err.message);
+    }
+    res.redirect(`glossary/${word}`);
+  });
+});
+
+//Lors d'un clic sur un mot spécifique
 app.get("/glossary/:word", (req, res) => {
   let id = req.params.word;
 
@@ -180,9 +195,15 @@ app.get("/glossary/:word", (req, res) => {
             if (errrr) {
               console.log(errrr.message);
             }
-            res.render("word", {mot: row[0], links: roww, likes: rowww, letters: alph, candel: cande});
+            res.render("word", {
+              mot: row[0],
+              links: roww,
+              likes: rowww,
+              letters: alph,
+              candel: cande
+            });
           });
-      });
+        });
       } else {
         res.redirect("/glossary");
       }
@@ -191,24 +212,24 @@ app.get("/glossary/:word", (req, res) => {
 });
 
 //Au moment d'un delete de post
-app.post('/glossary',(req,res)=>{
-	let butt=req.body.deleted;
-	let del=`DELETE FROM definitions WHERE word='${butt}';`;
-	let log=`INSERT INTO logs (word,author,date_del) VALUES('${butt}','email',"date('now')");`
-	db.serialize(()=>{
-		db.all(log,(err,row)=>{
-			if(err){
-				console.log(err.message);
-			}
-			db.all(del,(err,row)=>{
-				if(err){
-					console.log(err.message)
-				}
-			})
-			res.redirect('/glossary')
-		})
-	})
-})
+app.post("/glossary", (req, res) => {
+  let butt = req.body.deleted;
+  let del = `DELETE FROM definitions WHERE word='${butt}';`;
+  let log = `INSERT INTO logs (word,author,date_del) VALUES('${butt}','email',"date('now')");`;
+  db.serialize(() => {
+    db.all(log, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      db.all(del, (err, row) => {
+        if (err) {
+          console.log(err.message);
+        }
+      });
+      res.redirect("/glossary");
+    });
+  });
+});
 
 //Au moment d'une tentative de connexion
 app.post("/connect", (req, res) => {
@@ -263,17 +284,17 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
-    subvisitor(visitor);   
+    subvisitor(visitor);
     // console.log(`${visitor.id} // Got disconnect!`);
   });
 });
 //Lors d'une recherche
-app.post('/search',(req,res)=>{
-	let src=req.body.searc;
-	let ur='/glossary/'+src;
-	console.log(ur)
-	res.redirect(ur)
-})
+app.post("/search", (req, res) => {
+  let src = req.body.searc;
+  let ur = "/glossary/" + src;
+  console.log(ur);
+  res.redirect(ur);
+});
 
 class Visitor {
   constructor(id, email) {
@@ -289,21 +310,21 @@ function addvisitor(data) {
 }
 
 function subvisitor(data) {
-	let i = visitors.indexOf(data.id);
-	visitors.splice(i, 1);
-	console.log("substracted datas from visitors :");
-	console.log(visitors);
+  let i = visitors.indexOf(data.id);
+  visitors.splice(i, 1);
+  console.log("substracted datas from visitors :");
+  console.log(visitors);
 }
 
 function linkvisitor(data) {
-	let i = visitors.indexOf(
-		visitors.find(visitor => {
-			return visitor.id == data.id;
-		})
-		);
-	visitors[i].email = data.email;
-	console.log("linked datas inside visitors :");
-	console.log(visitors);
+  let i = visitors.indexOf(
+    visitors.find(visitor => {
+      return visitor.id == data.id;
+    })
+  );
+  visitors[i].email = data.email;
+  console.log("linked datas inside visitors :");
+  console.log(visitors);
 
   io.on("connection", socket => {
     socket.emit("hug", data);
