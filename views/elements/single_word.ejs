@@ -8,12 +8,18 @@
         </p>
     </div>
 
+    <div class="row ml-5">
+        <% links.forEach( link => { %> 
+            <%- include('./elements/link') %>
+        <% }); %>
+    </div>
+
 
     <div class="row ml-5">
         <!-- <form action="/like" method="POST"> -->
         <div class="input-group">
             <div class="input-group-prepend">
-                <div class="input-group-text" id="btnGroupAddon"><% likes.length %> Likes</div>
+                <div class="input-group-text" id="btnGroupAddon">XXX Likes</div>
             </div>
             <button class="btn btn-success" name="like" value="<%=mot.word%>" onclick="likethis("<%=mot.word%>")">
                 <i class="fas fa-thumbs-up"></i>

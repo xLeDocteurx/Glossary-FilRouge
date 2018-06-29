@@ -148,8 +148,14 @@ app.get("/glossary/:word", (req, res) => {
   // let likes = `SELECT * FROM likes WHERE likes.definition = ${word}`;
   //selectioner et fusionner likes et mots
 
-  let likes = `SELECT * FROM likes
-  WHERE item = '${id}'`;
+  let links = `SELECT DISTINCT * FROM links 
+  LEFT JOIN likes ON links.name = likes.item`;
+
+  // let links = `SELECT * FROM links
+  // WHERE item = '${id}'`;
+
+  // let likes = `SELECT * FROM likes
+  // WHERE item = '${id}'`;
 
   let motss = `SELECT word,definition FROM definitions WHERE word='${id}';`;
   db.serialize(() => {
@@ -159,12 +165,12 @@ app.get("/glossary/:word", (req, res) => {
         console.log(err.message);
       }
       if (row.length > 0) {
-        db.all(likes, (errr, roww) => {
+        db.all(links, (errr, roww) => {
           console.log(roww);
-          if (err) {
-            console.log(err.message);
+          if (errr) {
+            console.log(errr.message);
           }
-          res.render("word", { mot: row[0], likes: roww, letters: alph, candel: cande});
+          res.render("word", { mot: row[0], links: roww, letters: alph, candel: cande});
       });
       } else {
         res.redirect("/glossary");
