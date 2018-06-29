@@ -140,7 +140,6 @@ app.post("/ajout", (req, res) => {
     });
   });
 });
-<<<<<<< HEAD
 //Lors d'un clic sur un mot spécifique
 app.get("/glossary/:word", (req, res) => {
   let id = req.params.word;
@@ -173,24 +172,6 @@ app.get("/glossary/:word", (req, res) => {
     });
   });
 });
-=======
-//Lors d'un clic sur un mot spécifique 
-app.get('/glossary/:word',(req,res)=>{
-	var id=req.params.word
-	var motss=`SELECT word,definition FROM definitions WHERE word='${id}';`;
-	db.serialize(()=>{
-		db.all(motss,(err,row)=>{
-			if(err){
-				console.log(err.message)
-			}if(row.length>0){
-				res.render('word',{mot:row[0], letters:alph, candel:cande})
-			}else{
-				res.redirect('/');
-			}
-		})
-	})
-})
->>>>>>> c0cec58e790d55d55105a5dbbefa1990c22f7743
 //Au moment d'un delete de post
 app.post("/glossary", (req, res) => {
   var butt = req.body.deleted;
