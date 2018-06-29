@@ -149,21 +149,47 @@ app.post("/ajout", (req, res) => {
 	});
 });
 //Lors d'un clic sur un mot spécifique 
-app.get('/glossary/:word',(req,res)=>{
-	let id=req.params.word
-	let motss=`SELECT word,definition FROM definitions WHERE word='${id}';`;
-	db.serialize(()=>{
-		db.all(motss,(err,row)=>{
-			if(err){
-				console.log(err.message)
-			}if(row.length>0){
-				res.render('word',{mot:row[0], letters:alph, candel:cande})
-			}else{
-				res.redirect('/');
-			}
-		})
-	})
-})
+app.get("/glossary/:word", (req, res) => {
+  let id = req.params.word;
+
+  //selectionner tous les likes d'un mot
+  // let likes = `SELECT * FROM likes WHERE likes.definition = ${word}`;
+  //selectioner et fusionner likes et mots
+
+  let links = `SELECT * FROM links
+  WHERE item = '${id}'`;
+
+  let likes = `SELECT * FROM likes
+  WHERE item = '${id}'`;
+
+  let motss = `SELECT word,definition FROM definitions WHERE word='${id}';`;
+  db.serialize(() => {
+    db.all(motss, (err, row) => {
+      console.log(row);
+      if (err) {
+        console.log(err.message);
+      }
+      if (row.length > 0) {
+        db.all(links, (errr, roww) => {
+          console.log(roww);
+          if (errr) {
+            console.log(errr.message);
+          }
+          db.all(likes, (errrr, rowww) => {
+            console.log(rowww);
+            if (errrr) {
+              console.log(errrr.message);
+            }
+            res.render("word", {mot: row[0], links: roww, likes: rowww, letters: alph, candel: cande});
+          });
+      });
+      } else {
+        res.redirect("/glossary");
+      }
+    });
+  });
+});
+
 //Au moment d'un delete de post
 app.post('/glossary',(req,res)=>{
 	let butt=req.body.deleted;
@@ -231,14 +257,14 @@ io.on("connection", socket => {
     let word = data.word;
     let user = data.user;
     let like = `INSERT INTO likes (user, definition) VALUES  ('${user}', '${word}');`;
-    console.log(
-      `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
-    );
+    // console.log(
+    //   `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
+    // );
   });
 
   socket.on("disconnect", () => {
     subvisitor(visitor);
-    console.log(`${visitor.id} // Got disconnect!`);
+    // console.log(`${visitor.id} // Got disconnect!`);
   });
 });
 //Lors d'une recherche
