@@ -23,74 +23,74 @@ let server = app.listen(process.env.PORT || 8080);
 let io = socket(server);
 //function pour les double tirets
 function blbl(str) {
-	if (str == null) return "";
-	return String(str).replace(/--/g, "&#151;");
+  if (str == null) return "";
+  return String(str).replace(/--/g, "&#151;");
 }
 //Ouverture de la database ainsi que console log en cas d'erreur et si tout se passe bien
 let db = new sqlite3.Database("./glossaire", sqlite3.OPEN_READWRITE, err => {
-	if (err) {
-		console.log(err.message);
-	}
-	console.log("Base de données ouverte sans problème");
+  if (err) {
+    console.log(err.message);
+  }
+  console.log("Base de données ouverte sans problème");
 });
 //Variable fantome pour montrer le bouton supprimer que sur la page specifique d'un mot
-let cande=["random"];
+let cande = ["random"];
 //Variable pour stocker des donnés sur les visiteurs. c'est un array.
 let visitors = [];
 //Variable pour afficher tout les marque-pages
 let alph = [
-"+",
-"A",
-"B",
-"C",
-"D",
-"E",
-"F",
-"G",
-"H",
-"I",
-"J",
-"K",
-"L",
-"M",
-"N",
-"O",
-"P",
-"Q",
-"R",
-"S",
-"T",
-"U",
-"V",
-"W",
-"X",
-"Y",
-"Z"
+  "+",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z"
 ];
 
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
-	res.render("index", { letters: alph });
+  res.render("index", { letters: alph });
 });
 
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
 app.get("/glossary", (req, res) => {
-	let ind =
-	"SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
-	db.serialize(() => {
-		db.all(ind, (err, row) => {
-			if (err) {
-				console.log(err.message);
-			}
-			if (row.length > 0) {
-				res.render("glossary", { wword: row, letters: alph });
-			} else {
-				console.log("Pas de definitions trouvée");
-				res.render("glossary", { letters: alph });
-			}
-		});
-	});
+  let ind =
+    "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
+  db.serialize(() => {
+    db.all(ind, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      if (row.length > 0) {
+        res.render("glossary", { wword: row, letters: alph });
+      } else {
+        console.log("Pas de definitions trouvée");
+        res.render("glossary", { letters: alph });
+      }
+    });
+  });
 });
 //Page spécifique peu importe le marque page appuyé ( protection a ajouter )
 app.get("/lettre/:id", (req, res) => {
@@ -183,52 +183,63 @@ app.post('/glossary',(req,res)=>{
 		})
 	})
 })
+
 //Au moment d'une tentative de connexion
 app.post("/connect", (req, res) => {
-	let username = blbl(htmlspecialchars(req.body.connect_username));
-	let password = blbl(htmlspecialchars(req.body.connect_password));
+  let username = blbl(htmlspecialchars(req.body.connect_username));
+  let password = blbl(htmlspecialchars(req.body.connect_password));
 
-	console.log(username);
+  console.log(username);
 
-	let connection = `SELECT email, password FROM users WHERE username = '${username}';`;
+  let connection = `SELECT * FROM users WHERE username = '${username}';`;
 
-	db.all(connection, (err, row) => {
-		if (err) {
-			console.error(err.message);
-			return;
-		}
-		if (row != []) {
-			console.log("Connection réussie");
+  db.all(connection, (err, row) => {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    if (row != []) {
+      console.log("Connection réussie");
       // socket.emit("getid");
       io.on("connection", socket => {
-      	console.log(
-      		`lutilisateur "${
-      			socket.id
-      		}" s'est connecté avec succès avec le compte "${row.email}"`
-      		);
-      	linkvisitor(new Visitor(socket.id, row.email));
+        console.log(
+          `lutilisateur "${
+            socket.id
+          }" s'est connecté avec succès avec le compte "${row.email}"`
+        );
+        linkvisitor({ id: socket.id, email: row.email, user: row.username });
       });
 
       // linkvisitor({ id: socket.id });
 
       res.render("index", { user: row.email, letters: alph });
-  } else {
-  	console.log("Cet utilisateur n'existe pas dans la base de donné");
-  	res.render("index", { letters: alph });
-  }
-});
+    } else {
+      console.log("Cet utilisateur n'existe pas dans la base de donné");
+      res.render("index", { letters: alph });
+    }
+  });
 });
 
 //Utilisation de socket pour récupérer les id des visiteurs et les associer apres connection aux identifiants de la base de donnés
 io.on("connection", socket => {
-	let visitor = new Visitor(socket.id);
-	socket.emit("handshake", visitor);
-	addvisitor(visitor);
+  let visitor = new Visitor(socket.id);
+  socket.emit("handshake", visitor);
+  addvisitor(visitor);
 
-	socket.on("disconnect", () => {
-		subvisitor(visitor);
-		console.log(`${visitor.id} // Got disconnect!`);
-	});
+  io.on("like", data => {
+    //créer un like
+    let word = data.word;
+    let user = data.user;
+    let like = `INSERT INTO likes (user, definition) VALUES  ('${user}', '${word}');`;
+    console.log(
+      `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
+    );
+  });
+
+  socket.on("disconnect", () => {
+    subvisitor(visitor);
+    console.log(`${visitor.id} // Got disconnect!`);
+  });
 });
 //Lors d'une recherche
 app.post('/search',(req,res)=>{
@@ -239,16 +250,16 @@ app.post('/search',(req,res)=>{
 })
 
 class Visitor {
-	constructor(id, email) {
-		this.id = id;
-		arguments.length > 1 ? this.email = email : this.email = "";
-	}
+  constructor(id, email) {
+    this.id = id;
+    arguments.length > 1 ? (this.email = email) : (this.email = "");
+  }
 }
 
 function addvisitor(data) {
-	visitors.push(data);
-	console.log("added a visitor to visitors :");
-	console.log(visitors);
+  visitors.push(data);
+  // console.log("added a visitor to visitors :");
+  // console.log(visitors);
 }
 
 function subvisitor(data) {
@@ -268,7 +279,7 @@ function linkvisitor(data) {
 	console.log("linked datas inside visitors :");
 	console.log(visitors);
 
-	io.on("connection", socket => {
-		socket.emit("hug", data);
-	});
+  io.on("connection", socket => {
+    socket.emit("hug", data);
+  });
 }

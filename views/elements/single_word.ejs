@@ -1,7 +1,7 @@
 <div class="col-12 ml-5">
     <div class="row ml-5">
         <p class="mot">
-            <b>
+            <b id="title">
                 <%=mot.word%>
             </b> :
             <%=mot.definition%>.
@@ -9,11 +9,23 @@
     </div>
 
     <div class="row ml-5">
-        <form action="/like" method="POST">
-            <button class="btn btn-success" name="like" type="submit" value="<%=mot.word%>">
+        <% links.forEach( link => { %> 
+            <%- include('./elements/link') %>
+        <% }); %>
+    </div>
+
+
+    <div class="row ml-5">
+        <!-- <form action="/like" method="POST"> -->
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text" id="btnGroupAddon">XXX Likes</div>
+            </div>
+            <button class="btn btn-success" name="like" value="<%=mot.word%>" onclick="likethis("<%=mot.word%>")">
                 <i class="fas fa-thumbs-up"></i>
             </button>
-        </form>
+        </div>
+        <!-- </form> -->
 
         <a href="#" data-toggle="modal" data-target="#modalEditpost">
             <button class="btn btn-warning" name="edit" value="<%=mot.word%>">

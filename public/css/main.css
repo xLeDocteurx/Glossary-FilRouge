@@ -60,6 +60,7 @@ p {
 
 #content {
   min-height: 1100px;
+  padding-top: 10px;
 }
 
 #content_single {
