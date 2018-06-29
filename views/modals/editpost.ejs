@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <%=mot.word%>
+                <%if(locals.mot){%><%=mot.word%><%} %>
             </div>
             <div class="modal-content">
                 <form class="d-flex flex-column" action="/edit" method="POST">

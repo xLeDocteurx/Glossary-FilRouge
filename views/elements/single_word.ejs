@@ -9,9 +9,10 @@
     </div>
 
     <div class="row ml-5">
+        <%if(locals.link){%>
         <% links.forEach( (link, index) => { %> 
             <%- include('./link', link) %>
-        <% }); %>
+        <% }); %><%}%>
     </div>
 
 
