@@ -263,7 +263,7 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
-    subvisitor(visitor);
+    subvisitor(visitor);   
     // console.log(`${visitor.id} // Got disconnect!`);
   });
 });
