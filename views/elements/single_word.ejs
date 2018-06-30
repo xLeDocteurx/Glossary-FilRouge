@@ -10,6 +10,11 @@
 
     <div class="row ml-5">
         <div class="col-12 px-0">
+            <a href="#" data-toggle="modal" data-target="#modalAddlink">
+                <button class="btn btn-sm btn-success" name="new" value="<%=mot.word%>">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </a>
             <b>Sources :</b>
         </div>
         <div class="col-12">
@@ -24,12 +29,6 @@
 
 
     <div class="row ml-5">
-
-        <a href="#" data-toggle="modal" data-target="#modalAddlink">
-            <button class="btn btn-sm btn-success" name="edit" value="<%=mot.word%>">
-                <i class="fas fa-plus"></i>
-            </button>
-        </a>
 
         <a href="#" data-toggle="modal" data-target="#modalEditpost">
             <button class="btn btn-sm btn-warning" name="edit" value="<%=mot.word%>">
