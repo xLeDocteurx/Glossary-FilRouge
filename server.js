@@ -288,6 +288,7 @@ io.on("connection", socket => {
         if (err) {
           console.log(err.message);
         }
+        res.redirect(`/glossary/${word}`);
       });
     });
     // console.log(
@@ -306,6 +307,7 @@ io.on("connection", socket => {
         if (err) {
           console.log(err.message);
         }
+        res.redirect(`/glossary/${word}`);
       });
     });
     // console.log(
