@@ -15,14 +15,23 @@ socket.on("hug", data => {
   console.log(`${data}`);
 });
 
-function likethis (thisword) {
-
+function likethis(thisword) {
   let storage = localStorage.getItem("socket");
-  data = {
-    word : thisword,
-    user : storage.user
+  let data = {
+    word: thisword,
+    user: storage.user
   };
-  socket.emit("likethis");
+  socket.emit("likethis", data);
+  console.log("likethis()");
+}
+
+function trashthislink(thisword, thisname) {
+  let data = {
+    word:thisword,
+    name:thisname
+  };
+  socket.emit("trashthislink", data);
+  console.log("trashthislink()");
 }
 
 // if (!localStorage.getItem("user")) {

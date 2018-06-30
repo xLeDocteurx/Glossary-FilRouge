@@ -155,12 +155,14 @@ app.post("/source", (req, res) => {
   let linkname = req.body.add_linkname;
   let linkadd = `INSERT INTO links (item, name, href) VALUES ('${item}','${linkname}','${link}')`;
 
+  console.log(`item = ${item}`);
   db.serialize(() => {
     db.all(linkadd, (err, row) => {
       if (err) {
         console.log(err.message);
       }
-      res.redirect(`glossary/${item}`);
+      // res.redirect(`glossary/${item}`);
+      res.redirect(`/glossary/${item}`);
     });
   });
 });
@@ -275,11 +277,37 @@ io.on("connection", socket => {
   socket.emit("handshake", visitor);
   addvisitor(visitor);
 
-  io.on("like", data => {
-    //créer un like
+  //créer un like
+  socket.on("likethis", data => {
+    console.log("likethis()");
     let word = data.word;
     let user = data.user;
     let like = `INSERT INTO likes (user, definition) VALUES  ('${user}', '${word}');`;
+    db.serialize(() => {
+      db.all(like, (err, row) => {
+        if (err) {
+          console.log(err.message);
+        }
+      });
+    });
+    // console.log(
+    //   `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
+    // );
+  });
+
+  //Supprime un like un like
+  socket.on("trashthislink", data => {
+    console.log("trashthislink()");
+    let word = data.word;
+    let name = data.name;
+    let like = `DELETE FROM links WHERE item = '${word}' AND name = '${name}'`;
+    db.serialize(() => {
+      db.all(like, (err, row) => {
+        if (err) {
+          console.log(err.message);
+        }
+      });
+    });
     // console.log(
     //   `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
     // );
