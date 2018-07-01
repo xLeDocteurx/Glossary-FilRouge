@@ -256,17 +256,19 @@ app.post("/connect", (req, res) => {
         console.log(
           `lutilisateur "${
             socket.id
-          }" s'est connecté avec succès avec le compte "${row.email}"`
+          }" s'est connecté avec succès avec le compte "${row[0].email}"`
         );
-        linkvisitor({ id: socket.id, email: row.email, user: row.username });
+        linkvisitor({ id: socket.id, email: row[0].email, user: row[0].username });
       });
 
       // linkvisitor({ id: socket.id });
 
-      res.render("index", { user: row.email, letters: alph });
+      // res.render("index", { user: row[0].username, letters: alph });
+      res.redirect("/");
     } else {
       console.log("Cet utilisateur n'existe pas dans la base de donné");
-      res.render("index", { letters: alph });
+      // res.render("index", { letters: alph });
+      res.redirect("/");
     }
   });
 });
@@ -275,6 +277,10 @@ app.post("/connect", (req, res) => {
 io.on("connection", socket => {
   let visitor = new Visitor(socket.id);
   socket.emit("handshake", visitor);
+
+  socket.on("hug", data => {
+    
+  });
   addvisitor(visitor);
 
   //créer un like
