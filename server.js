@@ -77,18 +77,15 @@ app.get("/", (req, res) => {
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
 app.get("/glossary", (req, res) => {
-  console.log('debut')
   io.on('connection',socket=>{
     if(visitors.find(visitors=>{
       return visitors.id==socket.id
-    })){
+    })!=undefined){
       console.log('gg winner')
     }else {
       console.log('looser')
     }
   })
-  console.log(visitors)
-  console.log('fin')
   let ind =
     "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
   db.serialize(() => {
