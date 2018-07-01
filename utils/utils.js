@@ -8,3 +8,6 @@ exports.commit = function (data) {
     console.log('JSON successfully modified!');
   });
 };
+exports.dontcheat = function () {
+	io.on('connection')
+}
