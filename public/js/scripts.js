@@ -75,8 +75,6 @@ socket.on("hug", data => {
     "socket",
     JSON.stringify({ id: data.id, email: data.email, user: data.user })
   );
-  // console.log(`${data}`);
-  location.reload();
 });
 
 function logout() {

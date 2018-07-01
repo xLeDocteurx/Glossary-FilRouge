@@ -1,7 +1,7 @@
 let bodyparser = require("body-parser");
 let express = require("express");
 let socket = require("socket.io");
-let {commit} = require('./utils/utils.js');
+let { commit } = require("./utils/utils.js");
 let moment = require("moment");
 let fs = require("fs");
 let app = express();
@@ -77,15 +77,17 @@ app.get("/", (req, res) => {
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
 app.get("/glossary", (req, res) => {
-  io.on('connection',socket=>{
-    if(visitors.find(visitors=>{
-      return visitors.id==socket.id
-    })!=undefined){
-      console.log('gg winner')
-    }else {
-      console.log('looser')
+  io.on("connection", socket => {
+    if (
+      visitors.find(visitor => {
+        return visitor.id == socket.id;
+      }) != undefined
+    ) {
+      console.log("gg winner");
+    } else {
+      console.log("looser");
     }
-  })
+  });
   let ind =
     "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
   db.serialize(() => {
@@ -253,36 +255,40 @@ app.post("/connect", (req, res) => {
   console.log(username);
 
   let connection = `SELECT * FROM users WHERE username = '${username}';`;
-  db.serialize(()=>{
-  db.all(connection, (err, row) => {
-    if (err) {
-      console.error(err.message);
-      return;
-    }
-    if (row.length>0) {
-      console.log("Connection réussie");
-      // socket.emit("getid");
-      io.on("connection", socket => {
-        console.log(row)
-        console.log(
-          `l'utilisateur "${
-            socket.id
-          }" s'est connecté avec succès avec le compte "${row[0].email}"`
-        );
-        linkvisitor({ id: socket.id, email: row[0].email, user: row[0].username });
-      });
+  db.serialize(() => {
+    db.all(connection, (err, row) => {
+      if (err) {
+        console.error(err.message);
+        return;
+      }
+      if (row.length > 0) {
+        console.log("Connection réussie");
+        // socket.emit("getid");
+        io.on("connection", socket => {
+          console.log(row);
+          console.log(
+            `l'utilisateur "${
+              socket.id
+            }" s'est connecté avec succès avec le compte "${row[0].email}"`
+          );
+          linkvisitor({
+            id: socket.id,
+            email: row[0].email,
+            user: row[0].username
+          });
+        });
 
-      // linkvisitor({ id: socket.id });
+        // linkvisitor({ id: socket.id });
 
-      // res.render("index", { user: row[0].username, letters: alph });
-      res.redirect("/");
-    } else {
-      console.log("Cet utilisateur n'existe pas dans la base de donné");
-      // res.render("index", { letters: alph });
-      res.redirect("/");
-    }
+        res.render("index", { user: row[0].username, letters: alph });
+        // res.redirect("/");
+      } else {
+        console.log("Cet utilisateur n'existe pas dans la base de donné");
+        res.render("index", { letters: alph });
+        // res.redirect("/");
+      }
+    });
   });
-});
 });
 
 //Utilisation de socket pour récupérer les id des visiteurs et les associer apres connection aux identifiants de la base de donnés
@@ -290,9 +296,7 @@ io.on("connection", socket => {
   let visitor = new Visitor(socket.id);
   socket.emit("handshake", visitor);
 
-  socket.on("hug", data => {
-    
-  });
+  socket.on("hug", data => {});
   addvisitor(visitor);
 
   //créer un like
