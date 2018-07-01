@@ -72,6 +72,7 @@ let alph = [
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
   res.render("index", { letters: alph });
+  console.log(visitors);
 });
 
 // Initialisation de la première requete bdd sur la page accueil
