@@ -71,12 +71,27 @@ let alph = [
 
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
-  res.render("index", { letters: alph });
-  console.log(visitors);
+  let currentUser = checkCurrentuser();
+  console.log(currentUser)
+  res.render("index", { letters: alph,status:currentUser });
 });
 
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
+function checkCurrentuser() {
+  io.on("connection", socket => {
+    if (visitors.find(visitor => {
+        return visitor.id == socket.id;
+      })!= undefined) {
+      console.log("connected");
+      return "connected";
+    } else {
+      console.log("not connected");
+      return "visitor";
+    }
+  });
+
+}
 
 app.get("/glossary", (req, res) => {
   let ind =
@@ -87,10 +102,10 @@ app.get("/glossary", (req, res) => {
         console.log(err.message);
       }
       if (row.length > 0) {
-        res.render("glossary", { wword: row, letters: alph });
+        res.render("glossary", { wword: row, letters: alph,status:currentUser });
       } else {
         console.log("Pas de definitions trouvée");
-        res.render("glossary", { letters: alph });
+        res.render("glossary", { letters: alph,status:currentUser });
       }
     });
   });
@@ -102,15 +117,16 @@ app.get("/lettre/:id", (req, res) => {
     "SELECT word,definition,author,date_p,likes FROM definitions WHERE word like '" +
     id +
     "%'";
+    let currentUser=checkCurrentuser();
   db.serialize(() => {
     db.all(filtre, (err, row) => {
       if (err) {
         console.log(err.message);
       }
       if (row.length > 0) {
-        res.render("glossary", { wword: row, letters: alph });
+        res.render("glossary", { wword: row, letters: alph,status:currentUser });
       } else {
-        res.render("glossary", { letters: alph });
+        res.render("glossary", { letters: alph,status:currentUser });
         console.log("pas de données avec cette lettre");
       }
     });
@@ -173,6 +189,7 @@ app.post("/source", (req, res) => {
 //Lors d'un clic sur un mot spécifique
 app.get("/glossary/:word", (req, res) => {
   let id = req.params.word;
+  let currentUser=checkCurrentuser();
 
   //selectionner tous les likes d'un mot
   // let likes = `SELECT * FROM likes WHERE likes.definition = ${word}`;
@@ -207,7 +224,8 @@ app.get("/glossary/:word", (req, res) => {
               links: roww,
               likes: rowww,
               letters: alph,
-              candel: cande
+              candel: cande,
+              status:currentUser
             });
           });
         });
@@ -242,6 +260,7 @@ app.post("/glossary", (req, res) => {
 app.post("/connect", (req, res) => {
   let username = blbl(htmlspecialchars(req.body.connect_username));
   let password = blbl(htmlspecialchars(req.body.connect_password));
+  let currentUser=checkCurrentuser();
 
   console.log(username);
 
@@ -271,11 +290,11 @@ app.post("/connect", (req, res) => {
 
         // linkvisitor({ id: socket.id });
 
-        res.render("index", { user: row[0].username, letters: alph });
+        res.render("index", { user: row[0].username, letters: alph,status:currentUser });
         // res.redirect("/");
       } else {
         console.log("Cet utilisateur n'existe pas dans la base de donné");
-        res.render("index", { letters: alph });
+        res.render("index", { letters: alph,status:currentUser });
         // res.redirect("/");
       }
     });
