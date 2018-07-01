@@ -290,13 +290,14 @@ io.on("connection", socket => {
     console.log("likethis()");
     let word = data.word;
     let user = data.user;
-    let like = `INSERT INTO likes (user, definition) VALUES  ('${user}', '${word}');`;
+    let like = `INSERT INTO likes (user, item) VALUES  ('${user}', '${word}');`;
     db.serialize(() => {
       db.all(like, (err, row) => {
         if (err) {
           console.log(err.message);
         }
-        res.redirect(`/glossary/${word}`);
+        // res.redirect(`/glossary/${word}`);
+        socket.emit("refresh");
       });
     });
     // console.log(
@@ -315,7 +316,8 @@ io.on("connection", socket => {
         if (err) {
           console.log(err.message);
         }
-        res.redirect(`/glossary/${word}`);
+        // res.redirect(`/glossary/${word}`);
+        socket.emit("refresh");
       });
     });
     // console.log(

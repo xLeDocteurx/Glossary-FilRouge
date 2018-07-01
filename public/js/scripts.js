@@ -43,6 +43,10 @@ function heisnot() {
   }
 }
 
+socket.on("refresh", () => {
+  location.reload();
+});
+
 socket.on("handshake", data => {
   if (localStorage.getItem("socket")) {
     let storage = JSON.parse(localStorage.getItem("socket"));
@@ -96,5 +100,4 @@ function trashthislink(thisword, thisname) {
     name: thisname
   };
   socket.emit("trashthislink", data);
-  console.log("trashthislink()");
 }
