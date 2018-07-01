@@ -82,7 +82,7 @@ function checkCurrentuser() {
   io.on("connection", socket => {
     if (visitors.find(visitor => {
         return visitor.id == socket.id;
-      })== undefined) {
+      })!= undefined) {
       console.log('connected')
       return 'connected'
     } else {
@@ -94,9 +94,6 @@ function checkCurrentuser() {
 }
 
 app.get("/glossary", (req, res) => {
-
-  let currentUser = checkCurrentuser();
-
   let ind =
     "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
   db.serialize(() => {
@@ -218,7 +215,7 @@ app.get("/glossary/:word", (req, res) => {
             console.log(errr.message);
           }
           db.all(likes, (errrr, rowww) => {
-            console.log(rowww);
+            // console.log(rowww);
             if (errrr) {
               console.log(errrr.message);
             }
@@ -317,14 +314,31 @@ io.on("connection", socket => {
     console.log("likethis()");
     let word = data.word;
     let user = data.user;
+    let previouslike = `SELECT * FROM likes WHERE likes.user = '${user}' AND likes.item = '${word}'`;
     let like = `INSERT INTO likes (user, item) VALUES  ('${user}', '${word}');`;
     db.serialize(() => {
-      db.all(like, (err, row) => {
-        if (err) {
-          console.log(err.message);
+      db.all(previouslike, (errr, roww) => {
+        if (errr) {
+          console.log(errr.message);
         }
-        // res.redirect(`/glossary/${word}`);
-        socket.emit("refresh");
+        console.log("///////////////////////////////////////////////");
+        // console.log(roww);
+        if (roww.length == 0) {
+          db.all(like, (err, row) => {
+            if (err) {
+              console.log(err.message);
+            }
+            // res.redirect(`/glossary/${word}`);
+            console.log(
+              "L'utilisaateur n'a pas liké précédement le post nous allons l'aider a le faire cette fois ci"
+            );
+            socket.emit("refresh");
+          });
+        } else {
+          console.log(
+            "l'utilisateur a déja liké.. il ne se passera do,nc rien"
+          );
+        }
       });
     });
     // console.log(
