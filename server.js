@@ -79,7 +79,9 @@ app.get("/", (req, res) => {
 app.get("/glossary", (req, res) => {
   console.log('debut')
   io.on('connection',socket=>{
-    if(visitors[0].id==socket.id){
+    if(visitors.find(visitors=>{
+      return visitors.id==socket.id
+    })){
       console.log('gg winner')
     }else {
       console.log('looser')
