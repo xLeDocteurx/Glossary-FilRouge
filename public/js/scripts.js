@@ -18,25 +18,29 @@ function isConnected() {
 }
 
 function heis() {
-  let unco = document.getElementsByClassName("unco");
+  let nonco = document.getElementsByClassName("nonco");
   let forco = document.getElementsByClassName("forco");
-  unco.forEach(element => {
-    element.style.display = "none";
-  });
-  forco.forEach(element => {
-    element.style.display = "initial";
-  });
+  console.log(nonco);
+  console.log(forco);
+  for (let i = 0; i < nonco.length; i++) {
+    nonco[i].style.display = "none";
+  }
+  for (let i = 0; i < forco.length; i++) {
+    forco[i].style.display = "initial";
+  }
 }
 
 function heisnot() {
-  let unco = document.getElementsByClassName("unco");
+  let nonco = document.getElementsByClassName("nonco");
   let forco = document.getElementsByClassName("forco");
-  unco.forEach(element => {
-    element.style.display = "initial";
-  });
-  forco.forEach(element => {
-    element.style.display = "none";
-  });
+  console.log(nonco);
+  console.log(forco);
+  for (let i = 0; i < nonco.length; i++) {
+    nonco[i].style.display = "initial";
+  }
+  for (let i = 0; i < forco.length; i++) {
+    forco[i].style.display = "none";
+  }
 }
 
 socket.on("handshake", data => {
