@@ -2,17 +2,17 @@
 
     <!-- <form action="/like" method="POST"> -->
     <div class="input-group input-group-sm">
-
         <div class="input-group-prepend">
             <div class="input-group-text" id="btnGroupAddon"><%= likes.length %> likes</div>
         </div>
+        <%if(status!='visitor'){%>
         <button class="btn btn-sm btn-danger" onclick="trashthislink('<%=mot.word%>','<%= link.name %>')">
             <i class="fas fa-trash-alt"></i>
         </button>
         <button class="btn btn-sm btn-success" onclick="likethis('<%=mot.word%>')">
             <i class="fas fa-thumbs-up"></i>
         </button>
-
+        <%}%>
         <a class="ml-5" href="<%= link.href %>" target="_blank">
             <i><%= link.name %></i>
         </a>
