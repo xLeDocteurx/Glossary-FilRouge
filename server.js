@@ -243,18 +243,19 @@ app.post("/connect", (req, res) => {
   console.log(username);
 
   let connection = `SELECT * FROM users WHERE username = '${username}';`;
-
+  db.serialize(()=>{
   db.all(connection, (err, row) => {
     if (err) {
       console.error(err.message);
       return;
     }
-    if (row != []) {
+    if (row.length>0) {
       console.log("Connection réussie");
       // socket.emit("getid");
       io.on("connection", socket => {
+        console.log(row)
         console.log(
-          `lutilisateur "${
+          `l'utilisateur "${
             socket.id
           }" s'est connecté avec succès avec le compte "${row[0].email}"`
         );
@@ -271,6 +272,7 @@ app.post("/connect", (req, res) => {
       res.redirect("/");
     }
   });
+});
 });
 
 //Utilisation de socket pour récupérer les id des visiteurs et les associer apres connection aux identifiants de la base de donnés
