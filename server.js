@@ -84,6 +84,11 @@ app.get("/glossary", (req, res) => {
       }) != undefined
     ) {
       console.log("gg winner");
+      let currentUser = visitors[indexOf(visitors.find(visitor => {
+        return visitor.id == socket.id;
+      }))];
+      console.log("xinner is");
+      console.log(currentUser);
     } else {
       console.log("looser");
     }
