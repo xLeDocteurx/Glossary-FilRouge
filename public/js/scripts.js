@@ -1,22 +1,48 @@
 socket = io.connect();
 
+isConnected();
+
+function isConnected() {
+
+  if (localStorage.getItem("socket")) {
+    let storage = JSON.parse(localStorage.getItem("socket"));
+    let email = storage.email;
+    if (email) {
+      document.getElementById("header_button_login").style.display = "none";
+      document.getElementById("header_button_join").style.display = "none";
+    } else {
+      document.getElementById("header_button_logout").style.display = "none";
+    }
+  } else {
+    document.getElementById("header_button_logout").style.display = "none";
+  }
+}
+
+
+
 socket.on("handshake", data => {
-  let storage = JSON.parse(localStorage.getItem("socket"));
-  let email = storage.email;
-  console.log("le cookie email est t'il présent ?");
-  console.log(email);
-  if (email) {
-    console.log(
-      `le serrveur me reconnais et je suis connecté! id : ${
-        storage.id
-      } // email : ${storage.email}`
-    );
+  if (localStorage.getItem("socket")) {
+    let storage = JSON.parse(localStorage.getItem("socket"));
+    let email = storage.email;
+
+    if (email) {
+      console.log(
+        `le serrveur me reconnais et je suis connecté! id : ${
+          storage.id
+        } // email : ${storage.email}`
+      );
+    } else {
+      console.log(`le serrveur me reconnais mais je ne suis pas connecté!`);
+    }
   } else {
     localStorage.setItem(
       "socket",
-      JSON.stringify({ id: data.id, email: email })
+      JSON.stringify({ id: data.id })
     );
     console.log(`le serrveur me reconnais mais je ne suis pas connecté!`);
+    console.log(
+      `C'est ma premiere visite et il vient de créer le localstorage`
+    );
   }
 });
 
@@ -25,7 +51,8 @@ socket.on("hug", data => {
     "socket",
     JSON.stringify({ id: data.id, email: data.email, user: data.user })
   );
-  console.log(`${data}`);
+  // console.log(`${data}`);
+  location.reload();
 });
 
 function logout() {
