@@ -1,47 +1,47 @@
 socket = io.connect();
 
-// isConnected();
+isConnected();
 
-// function isConnected() {
-//   if (localStorage.getItem("socket")) {
-//     let storage = JSON.parse(localStorage.getItem("socket"));
-//     let email = storage.email;
+function isConnected() {
+  if (localStorage.getItem("socket")) {
+    let storage = JSON.parse(localStorage.getItem("socket"));
+    let email = storage.email;
 
-//     if (email) {
-//       heis();
-//     } else {
-//       heisnot();
-//     }
-//   } else {
-//     heisnot();
-//   }
-// }
+    if (email) {
+      heis();
+    } else {
+      heisnot();
+    }
+  } else {
+    heisnot();
+  }
+}
 
-// function heis() {
-//   let nonco = document.getElementsByClassName("nonco");
-//   let forco = document.getElementsByClassName("forco");
-//   console.log(nonco);
-//   console.log(forco);
-//   for (let i = 0; i < nonco.length; i++) {
-//     nonco[i].style.display = "none";
-//   }
-//   for (let i = 0; i < forco.length; i++) {
-//     forco[i].style.display = "initial";
-//   }
-// }
+function heis() {
+  let nonco = document.getElementsByClassName("nonco");
+  let forco = document.getElementsByClassName("forco");
+  console.log(nonco);
+  console.log(forco);
+  for (let i = 0; i < nonco.length; i++) {
+    nonco[i].style.display = "none";
+  }
+  for (let i = 0; i < forco.length; i++) {
+    forco[i].style.display = "initial";
+  }
+}
 
-// function heisnot() {
-//   let nonco = document.getElementsByClassName("nonco");
-//   let forco = document.getElementsByClassName("forco");
-//   console.log(nonco);
-//   console.log(forco);
-//   for (let i = 0; i < nonco.length; i++) {
-//     nonco[i].style.display = "initial";
-//   }
-//   for (let i = 0; i < forco.length; i++) {
-//     forco[i].style.display = "none";
-//   }
-// }
+function heisnot() {
+  let nonco = document.getElementsByClassName("nonco");
+  let forco = document.getElementsByClassName("forco");
+  console.log(nonco);
+  console.log(forco);
+  for (let i = 0; i < nonco.length; i++) {
+    nonco[i].style.display = "initial";
+  }
+  for (let i = 0; i < forco.length; i++) {
+    forco[i].style.display = "none";
+  }
+}
 
 socket.on("refresh", () => {
   location.reload();

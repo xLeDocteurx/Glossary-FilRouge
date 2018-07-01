@@ -72,7 +72,10 @@ let alph = [
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
   let currentUser = checkCurrentuser();
-  console.log(currentUser)
+  console.log(currentUser);
+  console.log('debut')
+  console.log(visitors)
+  console.log('fin')
   res.render("index", { letters: alph,status:currentUser });
 });
 
@@ -81,8 +84,8 @@ app.get("/", (req, res) => {
 function checkCurrentuser() {
   io.on("connection", socket => {
     if (visitors.find(visitor => {
-        return visitor.id == socket.id;
-      })!= undefined) {
+       return visitor==socket.id;
+      })) {
       console.log('connected')
       return 'connected'
     } else {
