@@ -76,23 +76,27 @@ app.get("/", (req, res) => {
 
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
-app.get("/glossary", (req, res) => {
+function checkCurrentuser() {
   io.on("connection", socket => {
     if (
       visitors.find(visitor => {
         return visitor.id == socket.id;
       }) != undefined
     ) {
-      console.log("gg winner");
-      let currentUser = visitors[indexOf(visitors.find(visitor => {
+      return visitors[indexOf(visitors.find(visitor => {
         return visitor.id == socket.id;
       }))];
-      console.log("xinner is");
-      console.log(currentUser);
     } else {
-      console.log("looser");
+      return "visitor";
     }
   });
+
+}
+
+app.get("/glossary", (req, res) => {
+
+  let currentUser = checkCurrentuser();
+
   let ind =
     "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
   db.serialize(() => {
