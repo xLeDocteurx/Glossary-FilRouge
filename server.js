@@ -1,9 +1,6 @@
 let bodyparser = require("body-parser");
 let express = require("express");
-let socket = require("socket.io");
 let { commit } = require("./utils/utils.js");
-let moment = require("moment");
-let fs = require("fs");
 let app = express();
 let htmlspecialchars = require("htmlspecialchars");
 const sqlite3 = require("sqlite3").verbose();
@@ -21,7 +18,6 @@ app.use("/glossary/:word", express.static("public"));
 app.use(bodyparser.urlencoded({ extended: false }));
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
-let io = socket(server);
 //function pour les double tirets
 function blbl(str) {
   if (str == null) return "";
@@ -252,106 +248,13 @@ app.post("/connect", (req, res) => {
     db.all(connection, (err, row) => {
       if (err) {
         console.error(err.message);
-        return;
       }
       if (row.length > 0) {
-        console.log("Connection réussie");
-        // socket.emit("getid");
-        io.on("connection", socket => {
-          console.log(row);
-          console.log(
-            `l'utilisateur "${
-              socket.id
-            }" s'est connecté avec succès avec le compte "${row[0].email}"`
-          );
-          linkvisitor({
-            id: socket.id,
-            email: row[0].email,
-            user: row[0].username
-          });
-        });
 
-        // linkvisitor({ id: socket.id });
-
-        res.render("index", { user: row[0].username, letters: alph});
-        // res.redirect("/");
       } else {
-        console.log("Cet utilisateur n'existe pas dans la base de donné");
-        res.render("index", { letters: alph });
-        // res.redirect("/");
+        
       }
     });
-  });
-});
-
-//Utilisation de socket pour récupérer les id des visiteurs et les associer apres connection aux identifiants de la base de donnés
-io.on("connection", socket => {
-  let visitor = new Visitor(socket.id);
-  socket.emit("handshake", visitor);
-
-  socket.on("hug", data => {});
-  addvisitor(visitor);
-
-  //créer un like
-  socket.on("likethis", data => {
-    console.log("likethis()");
-    let word = data.word;
-    let user = data.user;
-    let previouslike = `SELECT * FROM likes WHERE likes.user = '${user}' AND likes.item = '${word}'`;
-    let like = `INSERT INTO likes (user, item) VALUES  ('${user}', '${word}');`;
-    db.serialize(() => {
-      db.all(previouslike, (errr, roww) => {
-        if (errr) {
-          console.log(errr.message);
-        }
-        console.log("///////////////////////////////////////////////");
-        // console.log(roww);
-        if (roww.length == 0) {
-          db.all(like, (err, row) => {
-            if (err) {
-              console.log(err.message);
-            }
-            // res.redirect(`/glossary/${word}`);
-            console.log(
-              "L'utilisaateur n'a pas liké précédement le post nous allons l'aider a le faire cette fois ci"
-            );
-            socket.emit("refresh");
-          });
-        } else {
-          console.log(
-            "l'utilisateur a déja liké.. il ne se passera do,nc rien"
-          );
-        }
-      });
-    });
-    // console.log(
-    //   `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
-    // );
-  });
-
-  //Supprime un like un like
-  socket.on("trashthislink", data => {
-    console.log("trashthislink()");
-    let word = data.word;
-    let name = data.name;
-    let like = `DELETE FROM links WHERE item = '${word}' AND name = '${name}'`;
-    db.serialize(() => {
-      db.all(like, (err, row) => {
-        if (err) {
-          console.log(err.message);
-        }
-        // res.redirect(`/glossary/${word}`);
-        socket.emit("refresh");
-      });
-    });
-    // console.log(
-    //   `l'utilisateur ${user} a trouvé utilie la définition du mot ${word}`
-    // );
-  });
-
-  socket.on("disconnect", () => {
-    subvisitor(visitor);
-    // console.log(`${visitor.id} // Got disconnect!`);
   });
 });
 //Lors d'une recherche
@@ -361,38 +264,3 @@ app.post("/search", (req, res) => {
   console.log(ur);
   res.redirect(ur);
 });
-
-class Visitor {
-  constructor(id, email) {
-    this.id = id;
-    arguments.length > 1 ? (this.email = email) : (this.email = "");
-  }
-}
-
-function addvisitor(data) {
-  visitors.push(data);
-  // console.log("added a visitor to visitors :");
-  // console.log(visitors);
-}
-
-function subvisitor(data) {
-  let i = visitors.indexOf(data.id);
-  visitors.splice(i, 1);
-  // console.log("substracted datas from visitors :");
-  // console.log(visitors);
-}
-
-function linkvisitor(data) {
-  let i = visitors.indexOf(
-    visitors.find(visitor => {
-      return visitor.id == data.id;
-    })
-  );
-  visitors[i].email = data.email;
-  // console.log("linked datas inside visitors :");
-  // console.log(visitors);
-
-  io.on("connection", socket => {
-    socket.emit("hug", data);
-  });
-}
