@@ -3,6 +3,7 @@ let express = require("express");
 let { commit } = require("./utils/utils.js");
 let app = express();
 let htmlspecialchars = require("htmlspecialchars");
+let session = require('express-session')
 const sqlite3 = require("sqlite3").verbose();
 //Utilisation du template ejs
 app.set("view engine", "ejs");
@@ -16,6 +17,14 @@ app.use("/glossary/", express.static("public"));
 app.use("/glossary/:word", express.static("public"));
 //utilisation body-parser pour recuperer les données venant du client
 app.use(bodyparser.urlencoded({ extended: false }));
+//Utilisation des session en express
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+let sess;
+
 //Lancement serveur sur le port 8080
 let server = app.listen(process.env.PORT || 8080);
 //function pour les double tirets
@@ -67,10 +76,8 @@ let alph = [
 
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
-
-  console.log('debut')
-  console.log(visitors)
-  console.log('fin')
+  sess = req.session;
+  console.log(sess.username);
   res.render("index", { letters: alph });
 });
 
@@ -134,21 +141,20 @@ app.post("/register", (req, res) => {
 app.post("/edit", (req, res) => {
   let ed = req.body.editpost;
   let edi = `UPDATE `;
-  console.log(ed);
 });
 //Lors d'un ajout de poste sur le modal
 app.post("/ajout", (req, res) => {
   let title = blbl(htmlspecialchars(req.body.add_word));
   let define = req.body.add_definition;
   let postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
-  db.serialize(() => {
-    db.all(postadd, (err, row) => {
-      if (err) {
-        console.log(err.message);
-      }
-      res.redirect("/glossary");
+    db.serialize(() => {
+      db.all(postadd, (err, row) => {
+        if (err) {
+          console.log(err.message);
+        }
+        res.redirect("/glossary");
+      });
     });
-  });
 });
 //Lors de l'ajout d'un lien vers une source sur une définition
 app.post("/source", (req, res) => {
@@ -156,8 +162,6 @@ app.post("/source", (req, res) => {
   let link = req.body.add_link;
   let linkname = req.body.add_linkname;
   let linkadd = `INSERT INTO links (item, name, href) VALUES ('${item}','${linkname}','${link}')`;
-
-  console.log(`item = ${item}`);
   db.serialize(() => {
     db.all(linkadd, (err, row) => {
       if (err) {
@@ -239,6 +243,7 @@ app.post("/glossary", (req, res) => {
 
 //Au moment d'une tentative de connexion
 app.post("/connect", (req, res) => {
+  sess = req.session;
   let username = blbl(htmlspecialchars(req.body.connect_username));
   let password = blbl(htmlspecialchars(req.body.connect_password));
   let connection = `SELECT * FROM users WHERE username = '${username}';`;
@@ -248,9 +253,12 @@ app.post("/connect", (req, res) => {
         console.error(err.message);
       }
       if (row.length > 0) {
-
+        if( password == row[0].password) {
+          sess.username = username;
+        }
+        res.redirect("/");
       } else {
-        
+        res.redirect("/");
       }
     });
   });
@@ -259,6 +267,5 @@ app.post("/connect", (req, res) => {
 app.post("/search", (req, res) => {
   let src = req.body.searc;
   let ur = "/glossary/" + src;
-  console.log(ur);
   res.redirect(ur);
 });
