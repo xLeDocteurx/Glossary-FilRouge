@@ -67,6 +67,7 @@ let alph = [
 
 // Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
+
   console.log('debut')
   console.log(visitors)
   console.log('fin')
@@ -240,9 +241,6 @@ app.post("/glossary", (req, res) => {
 app.post("/connect", (req, res) => {
   let username = blbl(htmlspecialchars(req.body.connect_username));
   let password = blbl(htmlspecialchars(req.body.connect_password));
-
-  console.log(username);
-
   let connection = `SELECT * FROM users WHERE username = '${username}';`;
   db.serialize(() => {
     db.all(connection, (err, row) => {
