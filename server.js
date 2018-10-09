@@ -3,8 +3,14 @@ let express = require("express");
 let { commit } = require("./utils/utils.js");
 let app = express();
 let htmlspecialchars = require("htmlspecialchars");
-let session = require('express-session')
 const sqlite3 = require("sqlite3").verbose();
+
+let session = require('express-session')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
+
 //Utilisation du template ejs
 app.set("view engine", "ejs");
 //utilisation du dossier public pour le css
@@ -23,10 +29,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
-let sess;
+
 
 //Lancement serveur sur le port 8080
-let server = app.listen(process.env.PORT || 8000);
+let server = app.listen(process.env.PORT || 8080);
 //function pour les double tirets
 function blbl(str) {
   if (str == null) return "";
@@ -122,21 +128,6 @@ app.get("/lettre/:id", (req, res) => {
     });
   });
 });
-//Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
-app.post("/register", (req, res) => {
-  let ruser = blbl(htmlspecialchars(req.body.register_username));
-  let remail = blbl(htmlspecialchars(req.body.register_email));
-  let rpass = blbl(htmlspecialchars(req.body.register_password));
-  let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
-  db.serialize(() => {
-    db.all(inscription, (err, row) => {
-      if (err) {
-        console.log(err.message);
-      }
-    });
-  });
-  res.redirect("/");
-});
 //edit d'un poste
 app.post("/edit", (req, res) => {
   let ed = req.body.editpost;
@@ -147,24 +138,24 @@ app.post("/ajout", (req, res) => {
   let title = blbl(htmlspecialchars(req.body.add_word));
   let define = req.body.add_definition;
   let postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
-    db.serialize(() => {
-      db.all(postadd, (err, row) => {
+  db.serialize(() => {
+    db.all(postadd, (err, row) => {
         if (err) {
           console.log(err.message);
         }
         res.redirect("/glossary");
       });
     });
-});
-//Lors de l'ajout d'un lien vers une source sur une définition
-app.post("/source", (req, res) => {
-  let item = req.body.add_linkitem;
-  let link = req.body.add_link;
-  let linkname = req.body.add_linkname;
-  let linkadd = `INSERT INTO links (item, name, href) VALUES ('${item}','${linkname}','${link}')`;
-  db.serialize(() => {
-    db.all(linkadd, (err, row) => {
-      if (err) {
+  });
+  //Lors de l'ajout d'un lien vers une source sur une définition
+  app.post("/source", (req, res) => {
+    let item = req.body.add_linkitem;
+    let link = req.body.add_link;
+    let linkname = req.body.add_linkname;
+    let linkadd = `INSERT INTO links (item, name, href) VALUES ('${item}','${linkname}','${link}')`;
+    db.serialize(() => {
+      db.all(linkadd, (err, row) => {
+        if (err) {
         console.log(err.message);
       }
       // res.redirect(`glossary/${item}`);
@@ -176,17 +167,17 @@ app.post("/source", (req, res) => {
 //Lors d'un clic sur un mot spécifique
 app.get("/glossary/:word", (req, res) => {
   let id = req.params.word;
-
+  
   //selectionner tous les likes d'un mot
   // let likes = `SELECT * FROM likes WHERE likes.definition = ${word}`;
   //selectioner et fusionner likes et mots
-
+  
   let links = `SELECT * FROM links
   WHERE item = '${id}'`;
-
+  
   let likes = `SELECT * FROM likes
   WHERE item = '${id}'`;
-
+  
   let motss = `SELECT word,definition FROM definitions WHERE word='${id}';`;
   db.serialize(() => {
     db.all(motss, (err, row) => {
@@ -239,6 +230,22 @@ app.post("/glossary", (req, res) => {
       res.redirect("/glossary");
     });
   });
+});
+
+//Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
+app.post("/register", (req, res) => {
+  let ruser = blbl(htmlspecialchars(req.body.register_username));
+  let remail = blbl(htmlspecialchars(req.body.register_email));
+  let rpass = blbl(htmlspecialchars(req.body.register_password));
+  let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
+  db.serialize(() => {
+    db.all(inscription, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+    });
+  });
+  res.redirect("/");
 });
 
 //Au moment d'une tentative de connexion
