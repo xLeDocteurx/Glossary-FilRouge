@@ -1,6 +1,8 @@
 let bodyparser = require("body-parser");
 let express = require("express");
-let { commit } = require("./utils/utils.js");
+let {
+  commit
+} = require("./utils/utils.js");
 let app = express();
 let htmlspecialchars = require("htmlspecialchars");
 let session = require('express-session')
@@ -16,7 +18,9 @@ app.use("/glossary/", express.static("public"));
 //cas où l'on choisit un mot
 app.use("/glossary/:word", express.static("public"));
 //utilisation body-parser pour recuperer les données venant du client
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({
+  extended: false
+}));
 //Utilisation des session en express
 app.use(session({
   secret: 'keyboard cat',
@@ -74,54 +78,91 @@ let alph = [
   "Z"
 ];
 
-// Page d'acceuil permettant de faire une recherche ou de visualiser le nuage de mots
+// Page d'accueil permettant de faire une recherche ou de visualiser le nuage de mots
 app.get("/", (req, res) => {
   sess = req.session;
-  console.log(sess.username);
-  res.render("index", { letters: alph });
+  if (sess.username) {
+    console.log(sess.username);
+    res.render("index", {
+      username: username,
+      letters: alph
+    });
+  } else {
+    res.render("index", {
+      letters: alph
+    });
+  }
+
+
 });
 
 // Initialisation de la première requete bdd sur la page accueil
 //Affichage des definitions si existantes, sinon renvoi de la page vierge
 
 app.get("/glossary", (req, res) => {
-  let ind =
-    "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
-  db.serialize(() => {
-    db.all(ind, (err, row) => {
-      if (err) {
-        console.log(err.message);
-      }
-      if (row.length > 0) {
-        res.render("glossary", { wword: row, letters: alph});
-      } else {
-        console.log("Pas de definitions trouvée");
-        res.render("glossary", { letters: alph });
-      }
+
+  let ind = "SELECT word,definition,author,date_p,likes FROM definitions ORDER BY date_p DESC LIMIT 10";
+    db.serialize(() => {
+      db.all(ind, (err, row) => {
+        if (err) {
+          console.log(err.message);
+        }
+        if (row.length > 0) {
+          sess = req.session;
+            if (sess.username) {
+              res.render("glossary", {
+              username: username,
+              wword: row,
+              letters: alph
+              });
+            } else {
+              res.render("glossary", {
+                letters: alph
+              });
+            } 
+        } else {
+          console.log("Pas de definitions trouvée");
+          res.render("glossary", {
+            letters: alph
+          });
+        }
+      });
     });
-  });
 });
+
 //Page spécifique peu importe le marque page appuyé ( protection a ajouter )
 app.get("/lettre/:id", (req, res) => {
-  let id = htmlspecialchars(req.params.id);
-  let filtre =
-    "SELECT word,definition,author,date_p,likes FROM definitions WHERE word like '" +
-    id +
-    "%'";
-  db.serialize(() => {
-    db.all(filtre, (err, row) => {
-      if (err) {
-        console.log(err.message);
-      }
-      if (row.length > 0) {
-        res.render("glossary", { wword: row, letters: alph});
-      } else {
-        res.render("glossary", { letters: alph});
-        console.log("pas de données avec cette lettre");
-      }
-    });
-  });
+  
+    let id = htmlspecialchars(req.params.id);
+    let filtre = "SELECT word,definition,author,date_p,likes FROM definitions WHERE word like '" + id + "%'";
+      db.serialize(() => {
+        db.all(filtre, (err, row) => {
+          if (err) {
+          console.log(err.message);
+          }
+            if (row.length > 0) {
+              sess = req.session;
+                if (sess.username) {
+                  res.render("glossary", {
+                  username: username,
+                  wword: row,
+                  letters: alph
+              });
+                } else {
+                  res.render("glossary", {
+                    letters: alph
+                    });
+                }
+              } else {
+              res.render("glossary", {
+              letters: alph
+              });
+              console.log("pas de données avec cette lettre");
+              }
+      });
+    });  
 });
+
 //Lors de l'envoi d'un formulaire d'inscription ( protection a rajouter )
 app.post("/register", (req, res) => {
   let ruser = blbl(htmlspecialchars(req.body.register_username));
@@ -147,14 +188,14 @@ app.post("/ajout", (req, res) => {
   let title = blbl(htmlspecialchars(req.body.add_word));
   let define = req.body.add_definition;
   let postadd = `INSERT INTO definitions (word,definition,author,date_p,likes) VALUES('${title}','${define}','Test',date(\'now\'),'0')`;
-    db.serialize(() => {
-      db.all(postadd, (err, row) => {
-        if (err) {
-          console.log(err.message);
-        }
-        res.redirect("/glossary");
-      });
+  db.serialize(() => {
+    db.all(postadd, (err, row) => {
+      if (err) {
+        console.log(err.message);
+      }
+      res.redirect("/glossary");
     });
+  });
 });
 //Lors de l'ajout d'un lien vers une source sur une définition
 app.post("/source", (req, res) => {
@@ -175,6 +216,7 @@ app.post("/source", (req, res) => {
 
 //Lors d'un clic sur un mot spécifique
 app.get("/glossary/:word", (req, res) => {
+
   let id = req.params.word;
 
   //selectionner tous les likes d'un mot
@@ -205,13 +247,19 @@ app.get("/glossary/:word", (req, res) => {
             if (errrr) {
               console.log(errrr.message);
             }
-            res.render("word", {
-              mot: row[0],
-              links: roww,
-              likes: rowww,
-              letters: alph,
-              candel: cande
-            });
+              sess = req.session;
+              if(sess.username){
+                res.render("word", {
+                username: username,
+                mot: row[0],
+                links: roww,
+                likes: rowww,
+                letters: alph,
+                candel: cande
+                });
+              } else {
+              res.redirect("/glossary");
+              }
           });
         });
       } else {
@@ -253,7 +301,7 @@ app.post("/connect", (req, res) => {
         console.error(err.message);
       }
       if (row.length > 0) {
-        if( password == row[0].password) {
+        if (password == row[0].password) {
           sess.username = username;
         }
         res.redirect("/");
@@ -264,7 +312,7 @@ app.post("/connect", (req, res) => {
   });
 });
 //Pour se deconnecter
-app.get('/logout',(req,res)=>{
+app.get('/logout', (req, res) => {
   req.session.destroy;
   res.redirect('/');
 });
