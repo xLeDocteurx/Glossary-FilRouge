@@ -264,7 +264,7 @@ app.post("/connect", (req, res) => {
   });
 });
 //Pour se deconnecter
-app.post('/logout',(req,res)=>{
+app.get('/logout',(req,res)=>{
   req.session.destroy;
   res.redirect('/');
 });
