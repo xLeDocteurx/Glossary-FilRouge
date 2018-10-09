@@ -263,6 +263,11 @@ app.post("/connect", (req, res) => {
     });
   });
 });
+//Pour se deconnecter
+app.post('/logout',(req,res)=>{
+  req.session.destroy;
+  res.redirect('/');
+});
 //Lors d'une recherche
 app.post("/search", (req, res) => {
   let src = req.body.searc;
