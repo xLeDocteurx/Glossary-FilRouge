@@ -8,7 +8,7 @@ const sqlite3 = require("sqlite3").verbose();
 let session = require('express-session')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
+// const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 
 //Utilisation du template ejs
@@ -32,7 +32,7 @@ app.use(session({
 
 
 //Lancement serveur sur le port 8080
-let server = app.listen(process.env.PORT || 8080);
+let server = app.listen(process.env.PORT || 8000);
 //function pour les double tirets
 function blbl(str) {
   if (str == null) return "";
@@ -237,15 +237,34 @@ app.post("/register", (req, res) => {
   let ruser = blbl(htmlspecialchars(req.body.register_username));
   let remail = blbl(htmlspecialchars(req.body.register_email));
   let rpass = blbl(htmlspecialchars(req.body.register_password));
-  let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${rpass}')`;
-  db.serialize(() => {
-    db.all(inscription, (err, row) => {
-      if (err) {
-        console.log(err.message);
-      }
-    });
-  });
-  res.redirect("/");
+  let hpass;
+
+  bcrypt.genSalt(saltRounds, function(err, salt) {
+    bcrypt.hash(rpass, salt).then((hash) => {
+
+      console.log("//-------Utilisateur créé dans la base de  donnés-------//");
+      console.log(ruser);
+      console.log(remail);
+      console.log(rpass);
+      console.log(hash);
+      console.log("//------------------------------------------------------//");
+          
+      // let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${hpass}')`;
+      // db.serialize(() => {
+      //   db.all(inscription, (err, row) => {
+      //     if (err) {
+      //       console.log(err.message);
+      //     }
+      //   });
+      // });
+      // res.redirect("/");
+    }
+
+  )});
+
+  // res.render("index", {letters: alph, pass: rpass, hash: hpass});
+  // res.redirect("/");
+
 });
 
 //Au moment d'une tentative de connexion
