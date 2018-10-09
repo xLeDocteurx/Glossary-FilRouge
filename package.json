@@ -2,11 +2,15 @@
   "name": "",
   "version": "",
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "htmlspecialchars": "^1.0.5",
     "sqlite3": "^4.0.1"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }
