@@ -26,7 +26,7 @@ app.use(session({
 let sess;
 
 //Lancement serveur sur le port 8080
-let server = app.listen(process.env.PORT || 8080);
+let server = app.listen(process.env.PORT || 8000);
 //function pour les double tirets
 function blbl(str) {
   if (str == null) return "";
