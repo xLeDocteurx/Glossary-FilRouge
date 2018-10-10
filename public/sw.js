@@ -1,4 +1,4 @@
-var cacheName = 'hello-world-page';
+var cacheName = 'Glossary';
 var filesToCache = [
   '/',
   '/index.ejs',
