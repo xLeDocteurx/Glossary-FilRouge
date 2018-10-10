@@ -103,6 +103,14 @@
         <div class="blank_row row"></div>
 
 
-
+<script>
+// Service worker
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function() {
+                console.log('Service Worker Registered');
+          });
+      }
+</script>
 
         <%- include('./parts/footer') %>
