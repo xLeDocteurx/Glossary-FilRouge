@@ -241,23 +241,17 @@ app.post("/register", (req, res) => {
 
   bcrypt.genSalt(saltRounds, function(err, salt) {
     bcrypt.hash(rpass, salt).then((hash) => {
-
-      console.log("//-------Utilisateur créé dans la base de  donnés-------//");
-      console.log(ruser);
-      console.log(remail);
-      console.log(rpass);
-      console.log(hash);
-      console.log("//------------------------------------------------------//");
           
-      // let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${hpass}')`;
-      // db.serialize(() => {
-      //   db.all(inscription, (err, row) => {
-      //     if (err) {
-      //       console.log(err.message);
-      //     }
-      //   });
-      // });
-      // res.redirect("/");
+      let inscription = `INSERT INTO users (username,email,password) VALUES ('${ruser}','${remail}','${hpass}')`;
+      db.serialize(() => {
+        db.all(inscription, (err, row) => {
+          if (err) {
+            console.log(err.message);
+          }
+        });
+      });
+      res.redirect("/");
+      
     }
 
   )});
@@ -279,10 +273,12 @@ app.post("/connect", (req, res) => {
         console.error(err.message);
       }
       if (row.length > 0) {
-        if( password == row[0].password) {
-          sess.username = username;
-        }
-        res.redirect("/");
+          
+          bcrypt.compare(password, row[0].password).then((err, res) => {
+            sess.username = username;
+            res.redirect("/");
+          });
+
       } else {
         res.redirect("/");
       }
