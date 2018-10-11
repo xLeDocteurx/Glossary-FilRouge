@@ -3,7 +3,8 @@
     <!-- <form action="/like" method="POST"> -->
     <div class="input-group input-group-sm">
         <div class="input-group-prepend">
-            <div class="input-group-text" id="btnGroupAddon"><%= likes.length %> likes</div>
+            <div class="input-group-text" id="btnGroupAddon">
+                <%= likes.length %> likes</div>
         </div>
         <button class="forco btn btn-sm btn-danger" title="Delete source" onclick="trashthislink('<%=mot.word%>','<%= link.name %>')">
             <i class="fas fa-trash-alt"></i>
@@ -12,7 +13,8 @@
             <i class="fas fa-thumbs-up"></i>
         </button>
         <a class="ml-5" href="<%= link.href %>" target="_blank">
-            <i><%= link.name %></i>
+            <i>
+                <%= link.name %></i>
         </a>
     </div>
     <!-- </form> -->

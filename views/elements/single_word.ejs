@@ -11,7 +11,7 @@
     <div class="row ml-5">
         <div class="col-12 px-0">
             <a class="forco" title="Add source" href="#" data-toggle="modal" data-target="#modalAddlink">
-                <button class="btn btn-sm btn-success" name="new" value="<%=mot.word%>">
+                <button class="btn btn-sm btn-success" title="New link" name="new" value="<%=mot.word%>">
                     <i class="fas fa-plus"></i>
                 </button>
             </a>
@@ -19,10 +19,10 @@
         </div>
         <div class="col-12">
             <%#if(locals.link){%>
-                <% links.forEach( link => { %>
-                    <%- include('./link', {link: link}) %>
-                        <% }); %>
-                            <%#}%>
+            <% links.forEach( link => { %>
+            <%- include('./link', {link: link}) %>
+            <% }); %>
+            <%#}%>
         </div>
         <%- include('../modals/addlink')%>
     </div>

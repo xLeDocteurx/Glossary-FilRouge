@@ -14,12 +14,14 @@
     <% } %>
     px-3 py-2
     text-center">
-    <a <%if(index==0) {%>
-        class="forco" href="#" title="Add word" data-toggle="modal" data-target="#modalAddword">
-        <%}else {%>
-        href="/lettre/<%=items%>"><%}%>
-        <%=items%>
-    </a>
-</div>
-<% }) %>
+        <a <%if(index==0) {%>
+            class="forco" href="#" title="Add word" data-toggle="modal" data-target="#modalAddword">
+            <%}else {%>
+            href="/lettre/
+            <%=items%>">
+            <%}%>
+            <%=items%>
+        </a>
+    </div>
+    <% }) %>
 </div>
