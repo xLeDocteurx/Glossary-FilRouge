@@ -1,14 +1,17 @@
 <%wword.forEach((mot) => {%>
 <div class="row pl-5">
-	<a href="/glossary/<%=mot.word%>"><p class="mot py-0 my-0">
-		<b><%=mot.word%></b>
-		<%#=mot.definition%>
-	</p></a>
+	<a title="Show word" href="/glossary/<%=mot.word%>">
+		<p class="mot py-0 my-0">
+			<b>
+				<%=mot.word%></b>
+			<%#=mot.definition%>
+		</p>
+	</a>
 </div>
 
 <%# if(locals.candel){%>
 <!-- <form action="/glossary" method="POST">
-	<button class="btn" name="deleted" type="submit" value="<%=mot.word%>">Supprimer un mot</button>
+	<button class="btn" title="Delete Word" name="deleted" type="submit" value="<%=mot.word%>">Supprimer un mot</button>
 </form> -->
 <%#}%>
 

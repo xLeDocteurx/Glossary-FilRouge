@@ -1,8 +1,11 @@
-<div class="modal fade text-dark" id="modalEditpost" tabindex="-1" role="dialog" aria-labelledby="modalEditpostTitle" aria-hidden="true">
+<div class="modal fade text-dark" id="modalEditpost" tabindex="-1" role="dialog" aria-labelledby="modalEditpostTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <%if(locals.mot){%><%=mot.word%><%} %>
+                <%if(locals.mot){%>
+                <%=mot.word%>
+                <%} %>
             </div>
             <div class="modal-content">
                 <form class="d-flex flex-column" action="/edit" method="POST">
@@ -11,7 +14,6 @@
                 </form>
             </div>
             <div class="modal-footer">
-
             </div>
         </div>
     </div>

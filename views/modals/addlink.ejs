@@ -1,20 +1,21 @@
-<div class="modal fade text-dark" id="modalAddlink" tabindex="-1" role="dialog" aria-labelledby="modalAddlinkTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade text-dark" id="modalAddlink" tabindex="-1" role="dialog" aria-labelledby="modalAddlinkTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
             <div class="modal-content">
-                <div class="modal-header">
-                    
-                </div>
-                <div class="modal-content">
-                    <form class="d-flex flex-column" action="/source" method="POST">
-                        <input name="add_linkitem" type="text" value="<%= mot.word %>">
-                        <input name="add_linkname" type="text" placeholder="Title of your link">
-                        <input name="add_link" type="text" placeholder="http//yourlink.com">
-                        <button class="btn btn-info" type="submit">Add this source</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-    
-                </div>
+                <form class="d-flex flex-column" action="/source" method="POST">
+                    <input name="add_linkitem" type="text" value="<%= mot.word %>">
+                    <input name="add_linkname" type="text" placeholder="Title of your link">
+                    <input name="add_link" type="text" placeholder="http//yourlink.com">
+                    <button class="btn btn-info" type="submit">Add this source</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
             </div>
         </div>
     </div>
+</div>
