@@ -38,10 +38,11 @@
                         <div class="etiquette row">
                             <div class="col-md-12">
                                 <h1>GLOSSAIRE</h1>
-                                <div class="form-inline input-group-sm">
+                                <for class="form-inline input-group-sm">
+                                    <label for="search-sticker"></label>
                                     <input id="search-sticker" class="form-control mr-1 " type="search" placeholder="Search" aria-label="Search" name="searc">
-                                    <button id="submit-sticker" class="btn btn-outline-success btn-sm m-1" onclick="var ndh=getElementById('search-sticker').value;window.location.href=`/glossary/${ndh}`">Search</button>
-                                </div>
+                                    <button type="submit" id="submit-sticker" class="btn btn-outline-success btn-sm m-1" onclick="var ndh=getElementById('search-sticker').value;window.location.href=`/glossary/${ndh}`">Search</button>
+                                </for>
                             </div>
                         </div>
                         <div class="row">
